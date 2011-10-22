@@ -110,7 +110,7 @@ public class Login extends javax.swing.JFrame {
         System.out.println("PASS: " + jPasswordField1.getText());
         System.out.println("USER: " + jTextField1.getText());
         if (!jPasswordField1.getText().equals("") && !jTextField1.getText().equals("")){
-            VentPrincipal2 vp = new VentPrincipal2();
+            VentPrincipal vp = new VentPrincipal();
             vp.setVisible(true);
             vp.setDefaultCloseOperation(VentPrincipal.EXIT_ON_CLOSE);
             dispose();
