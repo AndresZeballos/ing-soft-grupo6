@@ -22,10 +22,19 @@ import javax.swing.AbstractButton;
  */
 public class VentPrincipal extends javax.swing.JFrame {
 
+    private IUsuario activeUser;
+    
     /** Creates new form VentPrincipal */
     public VentPrincipal() {
         initComponents();
         jPanel4.setVisible(false);
+        activeUser = new StubUsuario();
+    }
+
+    public VentPrincipal(IUsuario user) {
+        initComponents();
+        jPanel4.setVisible(false);
+        activeUser = user;
     }
 
     private void consultarEnvio(){
@@ -636,7 +645,7 @@ public class VentPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        consultarEnvio();
 }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
@@ -655,7 +664,7 @@ public class VentPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+        ingresarEnvio();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
