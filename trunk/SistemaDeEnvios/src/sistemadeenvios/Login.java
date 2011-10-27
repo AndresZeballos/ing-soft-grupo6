@@ -11,6 +11,8 @@
 
 package sistemadeenvios;
 
+import sistemadeenvios.stubs.StubUserBuilder;
+
 /**
  *
  * @author Andres
@@ -107,10 +109,12 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.out.println("PASS: " + jPasswordField1.getText());
-        System.out.println("USER: " + jTextField1.getText());
-        if (!jPasswordField1.getText().equals("") && !jTextField1.getText().equals("")){
-            VentPrincipal vp = new VentPrincipal();
+        char[] password = jPasswordField1.getPassword();
+        String spassword = new String(password);
+        String username = jTextField1.getText();
+        if (!spassword.equals("") && !username.equals("")){
+            IUsuario user = new StubUserBuilder().getUser(username);
+            VentPrincipal vp = new VentPrincipal(user);
             vp.setVisible(true);
             vp.setDefaultCloseOperation(VentPrincipal.EXIT_ON_CLOSE);
             dispose();

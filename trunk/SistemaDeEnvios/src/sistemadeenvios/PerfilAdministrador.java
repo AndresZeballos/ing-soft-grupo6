@@ -10,11 +10,11 @@ package sistemadeenvios;
  * @author Fede
  */
 public class PerfilAdministrador implements IPerfilUsuario{
-    public boolean ValidarAcceso(String componente)
+    public boolean validarAcceso(String componente)
     {
         return true;
     }
-    public boolean TieneComponente(String componente)
+    public boolean tieneComponente(String componente)
     {
         return true;
     }

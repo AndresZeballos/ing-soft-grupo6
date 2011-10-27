@@ -10,6 +10,6 @@ package sistemadeenvios;
  * @author Fede
  */
 public interface IPerfilUsuario {
-    boolean ValidarAcceso(String componente);
-    boolean TieneComponente(String componente);
+    boolean validarAcceso(String componente);
+    boolean tieneComponente(String componente);
 }

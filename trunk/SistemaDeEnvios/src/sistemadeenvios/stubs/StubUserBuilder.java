@@ -13,16 +13,16 @@ import sistemadeenvios.IUsuario;
  * @author Fede
  */
 public class StubUserBuilder implements IUserBuilder{
-    public IUsuario GetUser(String userName)
+    public IUsuario getUser(String userName)
     {
         IUsuario nuevoUsuario = null;
         if (userName.equalsIgnoreCase("admin"))
         {
             nuevoUsuario = new sistemadeenvios.stubs.UsuarioAdministrador();
         }
-        else if (userName.equalsIgnoreCase("gestion"))
+        else //if (userName.equalsIgnoreCase("gestion"))
         {
-
+            nuevoUsuario = new sistemadeenvios.stubs.StubUsuario();
         }
         return nuevoUsuario;
     }

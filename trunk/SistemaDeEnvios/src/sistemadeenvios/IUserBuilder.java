@@ -10,5 +10,5 @@ package sistemadeenvios;
  * @author Fede
  */
 public interface IUserBuilder {
-    IUsuario GetUser(String userName);
+    IUsuario getUser(String userName);
 }

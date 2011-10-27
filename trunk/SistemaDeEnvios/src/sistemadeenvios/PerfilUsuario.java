@@ -6,7 +6,6 @@
 package sistemadeenvios;
 
 import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
-import sun.io.Converters;
 
 /**
  *
@@ -15,16 +14,19 @@ import sun.io.Converters;
 public class PerfilUsuario implements IPerfilUsuario{
     private Hashtable listaPermisos;
     private String nombrePerfil;
+
     public PerfilUsuario(String nombre)
     {
         this.nombrePerfil = nombre;
         this.listaPermisos = new Hashtable();
     }
-    public void AgregarAcceso(String nombreComponente, boolean permitirAcesso)
+
+    public void agregarAcceso(String nombreComponente, boolean permitirAcesso)
     {
         this.listaPermisos.put(nombreComponente, permitirAcesso);
     }
-    public boolean ValidarAcceso(String componente)
+
+    public boolean validarAcceso(String componente)
     {
         boolean permiso = false;
         if (this.listaPermisos.containsKey(componente))
@@ -34,7 +36,8 @@ public class PerfilUsuario implements IPerfilUsuario{
         }
         return permiso;
     }
-    public boolean TieneComponente(String componente)
+    
+    public boolean tieneComponente(String componente)
     {
         return this.listaPermisos.containsKey(componente);
     }
