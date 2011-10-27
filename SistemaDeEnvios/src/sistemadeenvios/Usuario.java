@@ -15,26 +15,29 @@ public class Usuario implements IUsuario {
 
     private ArrayList<IPerfilUsuario> listaPerfiles;
     private String userName, password;
+    
     public Usuario(String userName, String password)
     {
         this.listaPerfiles = new ArrayList<IPerfilUsuario>();
         this.userName = userName;
         this.password = password;
     }
+
     public boolean validarPassword(String password)
     {
         return this.password.equals(password);
     }
+    
     public boolean validarAcceso(String componente)
     {
         boolean permitirAcceso = true;
         boolean containsAcceso = false;
         for(IPerfilUsuario p : this.listaPerfiles)
         {
-            if (p.TieneComponente(componente))
+            if (p.tieneComponente(componente))
             {
                 containsAcceso = true;
-                permitirAcceso = permitirAcceso && p.ValidarAcceso(componente);
+                permitirAcceso = permitirAcceso && p.validarAcceso(componente);
             }
         }
         if (!containsAcceso)
