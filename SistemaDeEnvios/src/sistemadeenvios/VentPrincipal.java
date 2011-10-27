@@ -11,6 +11,7 @@
 
 package sistemadeenvios;
 
+import sistemadeenvios.stubs.StubUsuario;
 import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -14,4 +14,8 @@ public class UsuarioAdministrador implements sistemadeenvios.IUsuario{
     {
         return true;
     }
+    public boolean validarPassword(String password)
+    {
+        return password.equals("admin");
+    }
 }

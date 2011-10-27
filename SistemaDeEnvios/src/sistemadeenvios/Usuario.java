@@ -14,9 +14,16 @@ import java.util.ArrayList;
 public class Usuario implements IUsuario {
 
     private ArrayList<IPerfilUsuario> listaPerfiles;
-    public Usuario()
+    private String userName, password;
+    public Usuario(String userName, String password)
     {
         this.listaPerfiles = new ArrayList<IPerfilUsuario>();
+        this.userName = userName;
+        this.password = password;
+    }
+    public boolean validarPassword(String password)
+    {
+        return this.password.equals(password);
     }
     public boolean validarAcceso(String componente)
     {
@@ -35,5 +42,12 @@ public class Usuario implements IUsuario {
             permitirAcceso = false;
         }
         return permitirAcceso;
+    }
+
+    /**
+     * @return the userName
+     */
+    public String getUserName() {
+        return userName;
     }
 }
