@@ -37,7 +37,7 @@ public class Login extends javax.swing.JFrame {
                 vp.setDefaultCloseOperation(VentPrincipal.EXIT_ON_CLOSE);
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(null, "Usuario ME QUEDE SIN ENIE LA PUTA QUEL O PARIO AL INGLES!!!!! ");
+                JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrecta");
             }
         }
     }

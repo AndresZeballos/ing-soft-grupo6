@@ -30,7 +30,7 @@ public class StubUsuario implements IUsuario {
     }
 
     public boolean validarPassword(String password) {
-        return password.equals("user");
+        return true;
     }
 
     public String getUserName() {
