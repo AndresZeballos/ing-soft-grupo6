@@ -8,9 +8,10 @@
  *
  * Created on 16-oct-2011, 16:59:01
  */
-
 package sistemadeenvios;
 
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import sistemadeenvios.stubs.StubUserBuilder;
 
 /**
@@ -22,6 +23,23 @@ public class Login extends javax.swing.JFrame {
     /** Creates new form Login */
     public Login() {
         initComponents();
+    }
+
+    private void validarLogin() {
+        char[] password = jPasswordField1.getPassword();
+        String spassword = new String(password);
+        String username = jTextField1.getText();
+        if (!spassword.equals("") && !username.equals("")) {
+            IUsuario user = new StubUserBuilder().getUser(username);
+            if (user.validarPassword(spassword)) {
+                VentPrincipal vp = new VentPrincipal(user);
+                vp.setVisible(true);
+                vp.setDefaultCloseOperation(VentPrincipal.EXIT_ON_CLOSE);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario ME QUEDE SIN ENIE LA PUTA QUEL O PARIO AL INGLES!!!!! ");
+            }
+        }
     }
 
     /** This method is called from within the constructor to
@@ -46,6 +64,18 @@ public class Login extends javax.swing.JFrame {
         jLabel1.setText("Usuario: ");
 
         jLabel2.setText("Contraseña:");
+
+        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyPressed(evt);
+            }
+        });
+
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
 
         jButton1.setText("Iniciar Sesion");
         jButton1.setMaximumSize(new java.awt.Dimension(100, 23));
@@ -109,33 +139,38 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        char[] password = jPasswordField1.getPassword();
-        String spassword = new String(password);
-        String username = jTextField1.getText();
-        if (!spassword.equals("") && !username.equals("")){
-            IUsuario user = new StubUserBuilder().getUser(username);
-            VentPrincipal vp = new VentPrincipal(user);
-            vp.setVisible(true);
-            vp.setDefaultCloseOperation(VentPrincipal.EXIT_ON_CLOSE);
-            dispose();
-        }
+        validarLogin();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        if (evt.getKeyChar() == java.awt.event.KeyEvent.VK_ENTER) {
+            // Al presionar ENTER
+            validarLogin();
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
+
+    private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
+        if (evt.getKeyChar() == java.awt.event.KeyEvent.VK_ENTER) {
+            // Al presionar ENTER
+            validarLogin();
+        }
+    }//GEN-LAST:event_jPasswordField1KeyPressed
+
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new Login().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -144,5 +179,4 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
-
 }
