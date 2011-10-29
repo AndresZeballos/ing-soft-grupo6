@@ -46,7 +46,10 @@ public class Usuario implements IUsuario {
         }
         return permitirAcceso;
     }
-
+    public void addPerfil(IPerfilUsuario perfilUsuario)
+    {
+        this.listaPerfiles.add(perfilUsuario);
+    }
     /**
      * @return the userName
      */

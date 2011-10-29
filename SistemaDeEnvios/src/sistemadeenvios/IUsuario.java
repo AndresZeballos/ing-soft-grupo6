@@ -13,4 +13,5 @@ public interface IUsuario {
     public boolean validarAcceso(String componente);
     public boolean validarPassword(String password);
     public String getUserName();
+    public void addPerfil(IPerfilUsuario perfilUsuario);
 }

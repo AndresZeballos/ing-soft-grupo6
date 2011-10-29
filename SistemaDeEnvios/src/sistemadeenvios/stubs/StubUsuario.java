@@ -6,6 +6,7 @@ package sistemadeenvios.stubs;
 
 import java.util.ArrayList;
 import sistemadeenvios.IUsuario;
+import sistemadeenvios.IPerfilUsuario;
 
 /**
  *
@@ -13,24 +14,43 @@ import sistemadeenvios.IUsuario;
  */
 public class StubUsuario implements IUsuario {
 
-    private ArrayList<String> permisos;
+    private ArrayList<IPerfilUsuario> listaPerfiles;
     private String userName;
+    private String password;
 
     public StubUsuario() {
-        this.permisos = new ArrayList<String>();
-        this.permisos.add("");
+        this.listaPerfiles = new ArrayList<IPerfilUsuario>();
+        //this.permisos.add("");
         this.userName = "user";
+        this.password = "pass";
     }
-
+    public void addPerfil(IPerfilUsuario perfilUsuario)
+    {
+        this.listaPerfiles.add(perfilUsuario);
+    }
     public boolean validarAcceso(String componente) {
         if (componente.equals("Administrar")) {
             return false;
         }
-        return true;
+        boolean permitirAcceso = true;
+        boolean containsAcceso = false;
+        for(IPerfilUsuario p : this.listaPerfiles)
+        {
+            if (p.tieneComponente(componente))
+            {
+                containsAcceso = true;
+                permitirAcceso = permitirAcceso && p.validarAcceso(componente);
+            }
+        }
+        if (!containsAcceso)
+        {
+            permitirAcceso = false;
+        }
+        return permitirAcceso;
     }
 
     public boolean validarPassword(String password) {
-        return true;
+        return this.password.equals(password);
     }
 
     public String getUserName() {

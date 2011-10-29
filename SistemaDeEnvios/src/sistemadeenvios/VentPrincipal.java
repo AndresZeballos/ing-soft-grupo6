@@ -10,6 +10,7 @@
  */
 package sistemadeenvios;
 
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.ListModel;
@@ -42,11 +43,22 @@ public class VentPrincipal extends javax.swing.JFrame {
     }
 
     private void aplicarPerfiles() {
-        if (!activeUser.validarAcceso("Administrar")) {
-            jMenu2.setVisible(false);
-            jTabbedPane1.removeTabAt(4);
-            jTabbedPane1.removeTabAt(3);
-            jTabbedPane1.removeTabAt(2);
+        String tabName;
+        for(int i = 0; i < jTabbedPane1.getTabCount(); i++)
+        {
+            Component c = jTabbedPane1.getComponentAt(i);
+            tabName = jTabbedPane1.getComponentAt(i).getName();
+            if (!activeUser.validarAcceso(tabName))
+            {
+                jTabbedPane1.remove(c);
+                i--;
+            }
+            /*if (!activeUser.validarAcceso("Administrar")) {
+                jMenu2.setVisible(false);
+                jTabbedPane1.removeTabAt(4);
+                jTabbedPane1.removeTabAt(3);
+                jTabbedPane1.removeTabAt(2);
+            }*/
         }
     }
 
@@ -311,6 +323,9 @@ public class VentPrincipal extends javax.swing.JFrame {
         setTitle("Sistema de gestión de envios");
 
         jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        jTabbedPane1.setName("null"); // NOI18N
+
+        jPanel1.setName("NuevoEnvio"); // NOI18N
 
         jLabel1.setText("Origen:");
 
@@ -526,6 +541,7 @@ public class VentPrincipal extends javax.swing.JFrame {
         jTabbedPane1.addTab("Nuevo envio", jPanel1);
 
         jPanel2.setToolTipText("");
+        jPanel2.setName("ConsultarEnvio"); // NOI18N
 
         jLabel15.setText("Ingrese el identificador del envío:");
 
@@ -711,6 +727,8 @@ public class VentPrincipal extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Consultar envio", jPanel2);
+
+        jPanel6.setName("NuevoUsuario"); // NOI18N
 
         jPanel11.setVisible(false);
 
@@ -903,13 +921,15 @@ public class VentPrincipal extends javax.swing.JFrame {
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Nuevo usuario", jPanel6);
+
+        jPanel7.setName("ActualizarUsuario"); // NOI18N
 
         jPanel9.setVisible(false);
 
@@ -1094,6 +1114,8 @@ public class VentPrincipal extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Actualizar usuario", jPanel7);
 
+        jPanel8.setName("EliminarUsuario"); // NOI18N
+
         jLabel39.setText("Nombre del usuario:");
 
         jButton9.setText("Eliminar");
@@ -1150,9 +1172,7 @@ public class VentPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel39)
                         .addGap(30, 30, 30)
@@ -1161,8 +1181,8 @@ public class VentPrincipal extends javax.swing.JFrame {
                                 .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(198, 198, 198))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
