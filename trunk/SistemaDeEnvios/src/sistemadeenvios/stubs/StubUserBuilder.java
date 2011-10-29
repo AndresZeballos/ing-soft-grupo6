@@ -20,9 +20,11 @@ public class StubUserBuilder implements IUserBuilder{
         {
             nuevoUsuario = new sistemadeenvios.stubs.UsuarioAdministrador();
         }
-        else //if (userName.equalsIgnoreCase("gestion"))
+        else if (userName.equalsIgnoreCase("consultar"))
         {
-            nuevoUsuario = new sistemadeenvios.stubs.StubUsuario();
+            nuevoUsuario = new sistemadeenvios.Usuario("consultar", "consultar");
+            sistemadeenvios.IPerfilUsuario perfil = new StubPerfilConsultar();
+            nuevoUsuario.addPerfil(perfil);
         }
         return nuevoUsuario;
     }
