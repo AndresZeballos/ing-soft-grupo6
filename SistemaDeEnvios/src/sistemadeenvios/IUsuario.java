@@ -10,8 +10,11 @@ package sistemadeenvios;
  * @author Andres
  */
 public interface IUsuario {
-    public boolean validarAcceso(String componente);
-    public boolean validarPassword(String password);
-    public String getUserName();
-    public void addPerfil(IPerfilUsuario perfilUsuario);
+    boolean validarAcceso(String componente);
+    boolean validarPassword(String password);
+    String getUserName();
+    boolean addPerfil(IPerfilUsuario perfilUsuario);
+    boolean crearUsuario();
+    boolean borrarUsuario();
+    boolean modificarUsuario();
 }

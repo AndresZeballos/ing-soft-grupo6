@@ -15,7 +15,14 @@ public class Usuario implements IUsuario {
 
     private ArrayList<IPerfilUsuario> listaPerfiles;
     private String userName, password;
-    
+
+    /**
+    * @return the userName
+    */
+    public String getUserName() {
+        return userName;
+    }
+
     public Usuario(String userName, String password)
     {
         this.listaPerfiles = new ArrayList<IPerfilUsuario>();
@@ -50,10 +57,15 @@ public class Usuario implements IUsuario {
     {
         this.listaPerfiles.add(perfilUsuario);
     }
-    /**
-     * @return the userName
+
+    /*
+     * se crea un user builder y se invoca el metodo de delete para borrar el
+     * usuario de la base de datos.
      */
-    public String getUserName() {
-        return userName;
+    public boolean borrarUsuario(){
+        try:
+            IUserBuilder constructor = new StubUserBuilder(this.userName);
+            constructor.delete();
+        catch
     }
 }
