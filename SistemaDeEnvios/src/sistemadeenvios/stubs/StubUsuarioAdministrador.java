@@ -2,13 +2,20 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package sistemadeenvios.stubs;
 import sistemadeenvios.logic.IPerfilUsuario;
 
 /**
  *
- * @author Fede
+ * @author agustin
  */
+public class StubUsuarioAdministrador {
+
+/**
+*
+* @author Fede
+*/
 public class UsuarioAdministrador implements sistemadeenvios.logic.IUsuario {
 
     private String userName;
@@ -16,9 +23,11 @@ public class UsuarioAdministrador implements sistemadeenvios.logic.IUsuario {
     public UsuarioAdministrador(){
         this.userName = "admin";
     }
+
     public void addPerfil(IPerfilUsuario perfilUsuario)
     {
     }
+
     public boolean validarAcceso(String componente) {
         return true;
     }

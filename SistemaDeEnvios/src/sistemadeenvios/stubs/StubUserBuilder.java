@@ -5,27 +5,61 @@
 
 package sistemadeenvios.stubs;
 
+
+import java.sql.SQLException;
+import sistemadeenvios.persistence.IUserBuilder;
 import sistemadeenvios.persistence.IUserBuilder;
 import sistemadeenvios.logic.IUsuario;
+import sistemadeenvios.logic.Usuario;
+import sistemadeenvios.logic.UsuarioAdministrador;
+import sistemadeenvios.stubs.StubPerfilConsultar;
 
-/**
- *
+/*
  * @author Fede
  */
 public class StubUserBuilder implements IUserBuilder{
-    public IUsuario getUser(String userName)
+
+    public String getUserName(String userName) throws SQLException
     {
-        IUsuario nuevoUsuario = null;
-        if (userName.equalsIgnoreCase("admin"))
-        {
-            nuevoUsuario = new sistemadeenvios.stubs.UsuarioAdministrador();
-        }
-        else if (userName.equalsIgnoreCase("consultar"))
-        {
-            nuevoUsuario = new sistemadeenvios.logic.Usuario("consultar", "consultar");
-            sistemadeenvios.logic.IPerfilUsuario perfil = new StubPerfilConsultar();
-            nuevoUsuario.addPerfil(perfil);
-        }
-        return nuevoUsuario;
+            IUsuario nuevoUsuario = null;
+            if (userName.equalsIgnoreCase("admin"))
+            {
+                //nuevoUsuario = new UsuarioAdministrador();
+                return "admin";
+            }
+            else if (userName.equalsIgnoreCase("usuario"))
+            {
+//                nuevoUsuario = new Usuario("consultar");
+//                sistemadeenvios.logic.IPerfilUsuario perfil = new StubPerfilConsultar();
+//                nuevoUsuario.addPerfil(perfil);
+                return "usuario";
+            }
+            else if (userName.equalsIgnoreCase("consulta"))
+            {
+                return "consulta";
+            }
+            else
+            {
+                throw new SQLException();
+            }
     }
+
+    public String getPassword(String userName) throws SQLException
+    {
+        if (true)
+        {
+            return "1234";
+        }
+        else
+        {
+            throw new SQLException();
+        }
+    }
+
+    public ArrayList<IPerfilBuilder> getPerfiles(String userName) throws SQLException
+    {
+        ArrayList
+    }
+
 }
+
