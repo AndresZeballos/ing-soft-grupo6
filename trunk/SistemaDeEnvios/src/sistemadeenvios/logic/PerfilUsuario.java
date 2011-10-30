@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package sistemadeenvios;
+package sistemadeenvios.logic;
 
 import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
 

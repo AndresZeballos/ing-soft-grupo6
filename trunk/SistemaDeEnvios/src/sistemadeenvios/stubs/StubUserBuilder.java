@@ -5,8 +5,8 @@
 
 package sistemadeenvios.stubs;
 
-import sistemadeenvios.IUserBuilder;
-import sistemadeenvios.IUsuario;
+import sistemadeenvios.persistence.IUserBuilder;
+import sistemadeenvios.logic.IUsuario;
 
 /**
  *
@@ -22,8 +22,8 @@ public class StubUserBuilder implements IUserBuilder{
         }
         else if (userName.equalsIgnoreCase("consultar"))
         {
-            nuevoUsuario = new sistemadeenvios.Usuario("consultar", "consultar");
-            sistemadeenvios.IPerfilUsuario perfil = new StubPerfilConsultar();
+            nuevoUsuario = new sistemadeenvios.logic.Usuario("consultar", "consultar");
+            sistemadeenvios.logic.IPerfilUsuario perfil = new StubPerfilConsultar();
             nuevoUsuario.addPerfil(perfil);
         }
         return nuevoUsuario;

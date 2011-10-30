@@ -3,7 +3,9 @@
  * and open the template in the editor.
  */
 
-package sistemadeenvios;
+package sistemadeenvios.persistence;
+
+import sistemadeenvios.logic.IUsuario;
 
 /**
  *

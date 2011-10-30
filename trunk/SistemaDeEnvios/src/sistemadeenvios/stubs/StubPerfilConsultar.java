@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Fede
  */
-public class StubPerfilConsultar implements sistemadeenvios.IPerfilUsuario{
+public class StubPerfilConsultar implements sistemadeenvios.logic.IPerfilUsuario{
     ArrayList<String> componentes;
     public StubPerfilConsultar()
     {

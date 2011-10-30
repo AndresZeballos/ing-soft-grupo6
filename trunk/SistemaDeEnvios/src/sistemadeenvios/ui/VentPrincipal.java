@@ -8,8 +8,11 @@
  *
  * Created on 13/10/2011, 16:47:22
  */
-package sistemadeenvios;
+package sistemadeenvios.ui;
 
+import sistemadeenvios.ui.Login;
+import sistemadeenvios.logic.IUsuario;
+import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,22 +46,29 @@ public class VentPrincipal extends javax.swing.JFrame {
     }
 
     private void aplicarPerfiles() {
+        Hashtable menus = new Hashtable();
+        menus.put("NuevoEnvio", jMenuItem1);
+        menus.put("ConsultarEnvio", jMenuItem2);
+        menus.put("NuevoUsuario", jMenuItem4);
+        menus.put("ActualizarUsuario", jMenuItem6);
+        menus.put("EliminarUsuario", jMenuItem7);
+
         String tabName;
-        for(int i = 0; i < jTabbedPane1.getTabCount(); i++)
-        {
-            Component c = jTabbedPane1.getComponentAt(i);
-            tabName = jTabbedPane1.getComponentAt(i).getName();
-            if (!activeUser.validarAcceso(tabName))
-            {
+        Component c;
+        Component m;
+        for (int i = 0; i < jTabbedPane1.getTabCount(); i++) {
+            c = jTabbedPane1.getComponentAt(i);
+            tabName = c.getName();
+            if (!activeUser.validarAcceso(tabName)) {
+                m = (Component) menus.get(tabName);
+                m.setVisible(false);
                 jTabbedPane1.remove(c);
                 i--;
             }
-            /*if (!activeUser.validarAcceso("Administrar")) {
-                jMenu2.setVisible(false);
-                jTabbedPane1.removeTabAt(4);
-                jTabbedPane1.removeTabAt(3);
-                jTabbedPane1.removeTabAt(2);
-            }*/
+
+        }
+        if (!activeUser.validarAcceso("Administrar")) {
+            jMenu2.setVisible(false);
         }
     }
 
@@ -323,7 +333,6 @@ public class VentPrincipal extends javax.swing.JFrame {
         setTitle("Sistema de gestión de envios");
 
         jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
-        jTabbedPane1.setName("null"); // NOI18N
 
         jPanel1.setName("NuevoEnvio"); // NOI18N
 
@@ -1208,6 +1217,7 @@ public class VentPrincipal extends javax.swing.JFrame {
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem1.setText("Nuevo envio");
+        jMenuItem1.setName("NuevoEnvio"); // NOI18N
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -1217,6 +1227,7 @@ public class VentPrincipal extends javax.swing.JFrame {
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem2.setText("Consultar envio");
+        jMenuItem2.setName("ConsultarEnvio"); // NOI18N
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -1249,6 +1260,7 @@ public class VentPrincipal extends javax.swing.JFrame {
         jMenu2.setText("Administrar");
 
         jMenuItem4.setText("Nuevo usuario");
+        jMenuItem4.setName("NuevoUsuario"); // NOI18N
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -1257,6 +1269,7 @@ public class VentPrincipal extends javax.swing.JFrame {
         jMenu2.add(jMenuItem4);
 
         jMenuItem6.setText("Actualizar usuario");
+        jMenuItem6.setName("ActualizarUsuario"); // NOI18N
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem6ActionPerformed(evt);
@@ -1265,6 +1278,7 @@ public class VentPrincipal extends javax.swing.JFrame {
         jMenu2.add(jMenuItem6);
 
         jMenuItem7.setText("Eliminar usuario");
+        jMenuItem7.setName("EliminarUsuario"); // NOI18N
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem7ActionPerformed(evt);
@@ -1306,7 +1320,7 @@ public class VentPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // Carga la pantalla correspondiente
-        jTabbedPane1.setSelectedIndex(1);
+        jTabbedPane1.setSelectedComponent(this);//.setSelectedIndex(1);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

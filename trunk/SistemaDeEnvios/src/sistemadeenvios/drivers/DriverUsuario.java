@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package sistemadeenvios.stubs;
+package sistemadeenvios.drivers;
 
+import sistemadeenvios.stubs.*;
 import java.util.ArrayList;
 import sistemadeenvios.logic.IUsuario;
 import sistemadeenvios.logic.IPerfilUsuario;
@@ -12,13 +13,13 @@ import sistemadeenvios.logic.IPerfilUsuario;
  *
  * @author Andres
  */
-public class StubUsuario implements IUsuario {
+public class DriverUsuario implements IUsuario {
 
     private ArrayList<IPerfilUsuario> listaPerfiles;
     private String userName;
     private String password;
 
-    public StubUsuario() {
+    public DriverUsuario() {
         this.listaPerfiles = new ArrayList<IPerfilUsuario>();
         //this.permisos.add("");
         this.userName = "user";

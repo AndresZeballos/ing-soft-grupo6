@@ -8,8 +8,9 @@
  *
  * Created on 16-oct-2011, 16:59:01
  */
-package sistemadeenvios;
+package sistemadeenvios.ui;
 
+import sistemadeenvios.logic.IUsuario;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import sistemadeenvios.stubs.StubUserBuilder;
