@@ -13,7 +13,7 @@ import sistemadeenvios.logic.IPerfilUsuario;
  *
  * @author Andres
  */
-public class DriverUsuario implements IUsuario {
+public class DriverUsuario {
 
     private ArrayList<IPerfilUsuario> listaPerfiles;
     private String userName;
