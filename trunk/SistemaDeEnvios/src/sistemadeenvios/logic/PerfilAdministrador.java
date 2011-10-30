@@ -18,4 +18,7 @@ public class PerfilAdministrador implements IPerfilUsuario{
     {
         return true;
     }
+    public void agregarAcceso(String nombreComponente, boolean permitirAcesso)
+    {
+    }
 }

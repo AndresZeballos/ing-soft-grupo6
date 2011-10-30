@@ -9,12 +9,12 @@ import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
 
 /**
  *
- * @author Fede
+ * @author agustin
  */
-public class PerfilUsuario implements IPerfilUsuario{
+public class PerfilConsultar implements IPerfilUsuario{
     private Hashtable listaPermisos;
 
-    public PerfilUsuario()
+    public PerfilConsultar()
     {
         this.listaPermisos = new Hashtable();
     }
@@ -34,7 +34,7 @@ public class PerfilUsuario implements IPerfilUsuario{
         }
         return permiso;
     }
-    
+
     public boolean tieneComponente(String componente)
     {
         return this.listaPermisos.containsKey(componente);
