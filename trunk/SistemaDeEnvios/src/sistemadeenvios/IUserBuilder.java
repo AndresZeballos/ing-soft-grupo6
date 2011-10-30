@@ -11,4 +11,5 @@ package sistemadeenvios;
  */
 public interface IUserBuilder {
     IUsuario getUser(String userName);
+
 }
