@@ -3,8 +3,10 @@
  * and open the template in the editor.
  */
 
-package sistemadeenvios;
+package sistemadeenvios.logic;
 
+import sistemadeenvios.logic.IUsuario;
+import sistemadeenvios.persistence.IUserBuilder;
 import java.util.ArrayList;
 
 /**

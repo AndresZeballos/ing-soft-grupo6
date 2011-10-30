@@ -3,13 +3,13 @@
  * and open the template in the editor.
  */
 package sistemadeenvios.stubs;
-import sistemadeenvios.IPerfilUsuario;
+import sistemadeenvios.logic.IPerfilUsuario;
 
 /**
  *
  * @author Fede
  */
-public class UsuarioAdministrador implements sistemadeenvios.IUsuario {
+public class UsuarioAdministrador implements sistemadeenvios.logic.IUsuario {
 
     private String userName;
 
