@@ -19,6 +19,11 @@ public class PerfilUsuario implements IPerfilUsuario{
         this.listaPermisos = new Hashtable();
     }
 
+    public String getPerfilName()
+    {
+        return "usuario";
+    }
+
     public void agregarAcceso(String nombreComponente, boolean permitirAcesso)
     {
         this.listaPermisos.put(nombreComponente, permitirAcesso);

@@ -10,6 +10,10 @@ package sistemadeenvios.logic;
  * @author Fede
  */
 public class PerfilAdministrador implements IPerfilUsuario{
+    public String getPerfilName()
+    {
+        return "admin";
+    }
     public boolean validarAcceso(String componente)
     {
         return true;

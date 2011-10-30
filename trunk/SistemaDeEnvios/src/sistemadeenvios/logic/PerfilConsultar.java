@@ -14,6 +14,11 @@ import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
 public class PerfilConsultar implements IPerfilUsuario{
     private Hashtable listaPermisos;
 
+    public String getPerfilName()
+    {
+        return "consulta";
+    }
+
     public PerfilConsultar()
     {
         this.listaPermisos = new Hashtable();
