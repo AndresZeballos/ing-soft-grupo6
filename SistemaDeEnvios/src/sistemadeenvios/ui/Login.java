@@ -13,6 +13,7 @@ package sistemadeenvios.ui;
 import sistemadeenvios.logic.IUsuario;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import sistemadeenvios.logic.Usuario;
 import sistemadeenvios.stubs.StubUserBuilder;
 
 /**
@@ -31,7 +32,7 @@ public class Login extends javax.swing.JFrame {
         String spassword = new String(password);
         String username = jTextField1.getText();
         if (!spassword.equals("") && !username.equals("")) {
-            IUsuario user = new StubUserBuilder().getUser(username);
+            IUsuario user = new Usuario(username);
             if (user.validarPassword(spassword)) {
                 VentPrincipal vp = new VentPrincipal(user);
                 vp.setVisible(true);
