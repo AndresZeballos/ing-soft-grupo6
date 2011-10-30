@@ -29,7 +29,8 @@ public class Usuario implements IUsuario {
         return userName;
     }
 
-    public Usuario(String userName) throws SQLException{
+    public Usuario(String userName)
+    {
         IUserBuilder userBuilder = new StubUserBuilder();
         try{
             this.userName = userBuilder.getUserName(userName);
@@ -53,7 +54,7 @@ public class Usuario implements IUsuario {
             }
         }
         catch (SQLException ex){
-            throw ex;
+            ex.printStackTrace();
         }
     }
 
@@ -104,7 +105,21 @@ public class Usuario implements IUsuario {
 
     public boolean crearUsuario()
     {
-        return true;
+        try
+        {
+            IUserBuilder constructor = new StubUserBuilder();
+            ArrayList<String> lista = new ArrayList<String>();
+            for (IPerfilUsuario p : this.listaPerfiles)
+            {
+                lista.add(p.getPerfilName());
+            }
+            constructor.crearUsuario(this.userName, this.password, lista);
+            return true;
+        }
+        catch (SQLException ex)
+        {
+            return false;
+        }
     }
 
     public boolean borrarUsuario(){
@@ -122,6 +137,20 @@ public class Usuario implements IUsuario {
 
     public boolean modificarUsuario()
     {
-        return true;
+        try
+        {
+            IUserBuilder constructor = new StubUserBuilder();
+            ArrayList<String> lista = new ArrayList<String>();
+            for (IPerfilUsuario p : this.listaPerfiles)
+            {
+                lista.add(p.getPerfilName());
+            }
+            constructor.crearUsuario(this.userName, this.password, lista);
+            return true;
+        }
+        catch (SQLException ex)
+        {
+            return false;
+        }
     }
 }

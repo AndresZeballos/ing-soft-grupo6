@@ -61,5 +61,17 @@ public class StubUserBuilder implements IUserBuilder{
         ArrayList
     }
 
+    public void crearUsuario(String userName, String password,
+                      ArrayList<String> perfiles) throws SQLException
+    {
+        if false
+        {
+            return new SQLException();
+        }
+    }
+    void borrarUsuario(String userName) throws SQLException;
+    void modificarUsuario(String userName, String password,
+                          ArrayList<String> perfiles) throws SQLException;
+
 }
 
