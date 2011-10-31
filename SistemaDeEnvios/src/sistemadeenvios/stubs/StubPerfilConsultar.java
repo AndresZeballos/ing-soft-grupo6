@@ -14,16 +14,11 @@ import sistemadeenvios.logic.IPerfilUsuario;
  */
 public class StubPerfilConsultar implements IPerfilUsuario{
 
-    ArrayList<String> componentes;
-
-    public StubPerfilConsultar()
-    {
-        this.componentes = new ArrayList<String>();
-        this.componentes.add("actualizarUsuario");
+    public String getPerfilName() {
+        return "consultar";
     }
 
     public void agregarAcceso(String nombreComponente, boolean permitirAcesso){
-        
     }
 
     public boolean validarAcceso(String componente)

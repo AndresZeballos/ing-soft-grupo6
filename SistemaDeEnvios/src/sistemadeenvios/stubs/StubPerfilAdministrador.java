@@ -3,13 +3,15 @@
  * and open the template in the editor.
  */
 
-package sistemadeenvios.logic;
+package sistemadeenvios.stubs;
+
+import sistemadeenvios.logic.IPerfilUsuario;
 
 /**
  *
  * @author Fede
  */
-public class PerfilAdministrador implements IPerfilUsuario{
+public class StubPerfilAdministrador implements IPerfilUsuario{
     public String getPerfilName()
     {
         return "admin";

@@ -11,10 +11,8 @@
 package sistemadeenvios.ui;
 
 import sistemadeenvios.logic.IUsuario;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import sistemadeenvios.logic.Usuario;
-import sistemadeenvios.stubs.StubUserBuilder;
 
 /**
  *
