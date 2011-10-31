@@ -6,20 +6,19 @@
 package sistemadeenvios.persistence;
 
 import java.util.ArrayList;
-import sistemadeenvios.logic.IUsuario;
-import java.sql.SQLException;
+import sistemadeenvios.logic.IPerfilUsuario;
 
 /**
  *
  * @author agustin
  */
 public interface IUserBuilder {
-    String getUserName(String userName) throws SQLException;
-    String getPassword(String userName) throws SQLException;
-    ArrayList<IPerfilBuilder> getPerfiles(String userName) throws SQLException;
+    boolean existeUserName(String userName);
+    String getPassword(String userName);
+    ArrayList<IPerfilUsuario> getPerfiles(String userName);
     void crearUsuario(String userName, String password,
-                      ArrayList<String> perfiles) throws SQLException;
-    void borrarUsuario(String userName) throws SQLException;
+                      ArrayList<String> perfiles);
+    void borrarUsuario(String userName);
     void modificarUsuario(String userName, String password,
-                          ArrayList<String> perfiles) throws SQLException;
+                          ArrayList<String> perfiles);
 }

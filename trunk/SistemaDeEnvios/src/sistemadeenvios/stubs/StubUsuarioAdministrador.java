@@ -2,30 +2,24 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package sistemadeenvios.stubs;
+
 import sistemadeenvios.logic.IPerfilUsuario;
 
 /**
  *
  * @author agustin
  */
-public class StubUsuarioAdministrador {
-
-/**
-*
-* @author Fede
-*/
-public class UsuarioAdministrador implements sistemadeenvios.logic.IUsuario {
+public class StubUsuarioAdministrador implements sistemadeenvios.logic.IUsuario {
 
     private String userName;
 
-    public UsuarioAdministrador(){
+    public StubUsuarioAdministrador() {
         this.userName = "admin";
     }
 
-    public void addPerfil(IPerfilUsuario perfilUsuario)
-    {
+    public boolean addPerfil(IPerfilUsuario perfilUsuario) {
+        return true;
     }
 
     public boolean validarAcceso(String componente) {
@@ -38,5 +32,17 @@ public class UsuarioAdministrador implements sistemadeenvios.logic.IUsuario {
 
     public String getUserName() {
         return this.userName;
+    }
+
+    public boolean crearUsuario() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean borrarUsuario() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean modificarUsuario() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

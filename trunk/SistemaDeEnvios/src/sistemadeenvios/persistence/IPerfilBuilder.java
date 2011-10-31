@@ -5,7 +5,6 @@
 
 package sistemadeenvios.persistence;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -13,7 +12,7 @@ import java.util.ArrayList;
  * @author agustin
  */
 public interface IPerfilBuilder {
-    String getPerfilName() throws SQLException;
-    boolean existePerfil(String perfilName) throws SQLException;
-    ArrayList<String> getPermisos(String perfilName) throws SQLException;
+    //String getPerfilName();
+    boolean existePerfil(String perfilName);
+    ArrayList<String> getPermisos(String perfilName);
 }
