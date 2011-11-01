@@ -5,31 +5,25 @@
 package sistemadeenvios.stubs;
 
 import sistemadeenvios.persistence.IPerfilBuilder;
-import java.util.ArrayList;
+import sistemadeenvios.logic.IPerfilUsuario;
 
 /**
  *
  * @author agustin
  */
 public class StubPerfilBuilder implements IPerfilBuilder {
-    /*public String getPerfilName() throws SQLException{
-    if (true)
-    {
-    return "consulta";
-    }
-    else
-    {
-    throw new SQLException();
-    }
-    }*/
-
+    
     public boolean existePerfil(String perfilName) {
         return true;
     }
 
-    public ArrayList<String> getPermisos(String perfilName) {
-        ArrayList<String> permisos = new ArrayList<String>();
-        //permisos.add("prueba");
-        return permisos;
+    public IPerfilUsuario getPerfil(String perfilName) {
+        if (perfilName.equalsIgnoreCase("administrador")) {
+            return new StubPerfilAdministrador();
+        } else if (perfilName.equalsIgnoreCase("funcionario")) {
+            return new StubPerfilFuncionario();
+        } else /* if (userName.equalsIgnoreCase("consultor")) */ {
+            return new StubPerfilConsultar();
+        }
     }
 }

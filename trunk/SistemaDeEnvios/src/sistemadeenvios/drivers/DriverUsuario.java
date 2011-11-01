@@ -16,21 +16,9 @@ import sistemadeenvios.logic.Usuario;
  */
 public class DriverUsuario {
 
-    public static void main(String[] args) {
-        perfilAdmin();
-        perfilConsultor();
-        perfilUsuario();
 
+    public static void main(String args[]){
+        
     }
 
-    private static void perfilAdmin() {
-        IUsuario user = new Usuario("admin");
-
-    }
-
-    private static void perfilConsultor() {
-    }
-
-    private static void perfilUsuario() {
-    }
 }
