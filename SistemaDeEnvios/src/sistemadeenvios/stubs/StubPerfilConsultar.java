@@ -5,7 +5,6 @@
 
 package sistemadeenvios.stubs;
 
-import java.util.ArrayList;
 import sistemadeenvios.logic.IPerfilUsuario;
 
 /**
@@ -15,7 +14,7 @@ import sistemadeenvios.logic.IPerfilUsuario;
 public class StubPerfilConsultar implements IPerfilUsuario{
 
     public String getPerfilName() {
-        return "consultar";
+        return "consultor";
     }
 
     public void agregarAcceso(String nombreComponente, boolean permitirAcesso){

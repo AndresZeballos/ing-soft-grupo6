@@ -6,6 +6,7 @@ package sistemadeenvios.stubs;
 
 import java.util.ArrayList;
 import sistemadeenvios.logic.IPerfilUsuario;
+import sistemadeenvios.persistence.IPerfilBuilder;
 import sistemadeenvios.persistence.IUserBuilder;
 
 /*
@@ -22,25 +23,37 @@ public class StubUserBuilder implements IUserBuilder {
     }
 
     public ArrayList<IPerfilUsuario> getPerfiles(String userName) {
+        IPerfilBuilder pb = new StubPerfilBuilder();
+        ArrayList<String> perfiles = new ArrayList<String>();
         ArrayList<IPerfilUsuario> listaPerfiles = new ArrayList<IPerfilUsuario>();
+        // Cargo los nombres de los perfiles
         if (userName.equalsIgnoreCase("admin")) {
-            listaPerfiles.add(new StubPerfilAdministrador());
+            perfiles.add("administrador");
         } else if (userName.equalsIgnoreCase("funcionario")) {
-            listaPerfiles.add(new StubPerfilFuncionario());
+            perfiles.add("funcionario");
         } else /* if (userName.equalsIgnoreCase("consultor")) */ {
-            listaPerfiles.add(new StubPerfilConsultar());
+            perfiles.add("consultor");
+        }
+        // Cargo los perfiles por su nombre
+        for(String perfil: perfiles){
+            if(pb.existePerfil(perfil)){
+                listaPerfiles.add(pb.getPerfil(perfil));
+            }
         }
         return listaPerfiles;
     }
 
-    public void crearUsuario(String userName, String password,
+    public boolean crearUsuario(String userName, String password,
             ArrayList<String> perfiles) {
+        return true;
     }
 
-    public void borrarUsuario(String userName) {
+    public boolean borrarUsuario(String userName) {
+        return true;
     }
 
-    public void modificarUsuario(String userName, String password,
+    public boolean modificarUsuario(String userName, String password,
             ArrayList<String> perfiles) {
+        return true;
     }
 }

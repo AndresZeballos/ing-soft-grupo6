@@ -16,9 +16,9 @@ public interface IUserBuilder {
     boolean existeUserName(String userName);
     String getPassword(String userName);
     ArrayList<IPerfilUsuario> getPerfiles(String userName);
-    void crearUsuario(String userName, String password,
+    boolean crearUsuario(String userName, String password,
                       ArrayList<String> perfiles);
-    void borrarUsuario(String userName);
-    void modificarUsuario(String userName, String password,
+    boolean borrarUsuario(String userName);
+    boolean modificarUsuario(String userName, String password,
                           ArrayList<String> perfiles);
 }

@@ -13,7 +13,7 @@ public interface IUsuario {
     boolean validarAcceso(String componente);
     boolean validarPassword(String password);
     String getUserName();
-    boolean addPerfil(IPerfilUsuario perfilUsuario);
+    boolean addPerfil(String perfilUsuario);
     boolean crearUsuario();
     boolean borrarUsuario();
     boolean modificarUsuario();

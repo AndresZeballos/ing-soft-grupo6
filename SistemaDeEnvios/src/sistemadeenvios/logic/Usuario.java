@@ -7,6 +7,8 @@ package sistemadeenvios.logic;
 import sistemadeenvios.persistence.IUserBuilder;
 import sistemadeenvios.stubs.StubUserBuilder;
 import java.util.ArrayList;
+import sistemadeenvios.persistence.IPerfilBuilder;
+import sistemadeenvios.stubs.StubPerfilBuilder;
 
 /*
  * @author Fede
@@ -41,6 +43,9 @@ public class Usuario implements IUsuario {
     }
 
     public boolean validarPassword(String password) {
+        if (this.password == null) {
+            return false;
+        }
         return this.password.equals(password);
     }
 
@@ -59,9 +64,14 @@ public class Usuario implements IUsuario {
         return permitirAcceso;
     }
 
-    public boolean addPerfil(IPerfilUsuario perfilUsuario) {
-        this.listaPerfiles.add(perfilUsuario);
-        return true;
+    public boolean addPerfil(String perfilUsuario) {
+        IPerfilBuilder perfilBuilder = new StubPerfilBuilder();
+        if(perfilBuilder.existePerfil(perfilUsuario)){
+            IPerfilUsuario perfil = perfilBuilder.getPerfil(perfilUsuario);
+            this.listaPerfiles.add(perfil);
+            return true;
+        }
+        return false;
     }
 
     /*
@@ -74,14 +84,12 @@ public class Usuario implements IUsuario {
         for (IPerfilUsuario p : this.listaPerfiles) {
             lista.add(p.getPerfilName());
         }
-        constructor.crearUsuario(this.userName, this.password, lista);
-        return true;
+        return constructor.crearUsuario(this.userName, this.password, lista);
     }
 
     public boolean borrarUsuario() {
         IUserBuilder constructor = new StubUserBuilder();
-        constructor.borrarUsuario(this.userName);
-        return true;
+        return constructor.borrarUsuario(this.userName);
     }
 
     public boolean modificarUsuario() {
@@ -90,7 +98,6 @@ public class Usuario implements IUsuario {
         for (IPerfilUsuario p : this.listaPerfiles) {
             lista.add(p.getPerfilName());
         }
-        constructor.crearUsuario(this.userName, this.password, lista);
-        return true;
+        return constructor.crearUsuario(this.userName, this.password, lista);
     }
 }
