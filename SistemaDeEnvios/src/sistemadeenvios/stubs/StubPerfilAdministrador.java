@@ -14,7 +14,7 @@ import sistemadeenvios.logic.IPerfilUsuario;
 public class StubPerfilAdministrador implements IPerfilUsuario{
     public String getPerfilName()
     {
-        return "admin";
+        return "administrador";
     }
     public boolean validarAcceso(String componente)
     {

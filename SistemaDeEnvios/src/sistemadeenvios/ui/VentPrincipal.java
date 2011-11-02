@@ -21,6 +21,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractButton;
 import javax.swing.JList;
+import sistemadeenvios.logic.IPerfilUsuario;
+import sistemadeenvios.logic.PerfilUsuario;
 import sistemadeenvios.logic.Usuario;
 
 /**
@@ -30,6 +32,8 @@ import sistemadeenvios.logic.Usuario;
 public class VentPrincipal extends javax.swing.JFrame {
 
     private IUsuario activeUser;
+    private IUsuario user;
+    private IPerfilUsuario perfil;
 
     /** Creates new form VentPrincipal */
     public VentPrincipal() {
@@ -145,23 +149,62 @@ public class VentPrincipal extends javax.swing.JFrame {
     }
 
     private void cargarUsuario() {
-        String[] actuales;
-        String[] disponibles;
-        if (jTextField4.getText().equals("admin")) {
-            actuales = new String[]{"Administrador", "Funcionario", "Consultor"};
-            disponibles = new String[]{""};
-        } else {
-            actuales = new String[]{"Consultor"};
-            disponibles = new String[]{"Administrador", "Funcionario"};
-        }
+        user = new Usuario(jTextField4.getText());
+        ArrayList<IPerfilUsuario> p = user.getListaPerfiles();
 
-//        Object selected[] = sourceList.getSelectedValues();
-//        addDestinationElements(selected);
-//        clearSourceSelected();
+        String[] actuales = new String[p.size()];
+        String[] disponibles = new String[3 - p.size()];
+        ArrayList<String> posibles = new ArrayList<String>();
+        posibles.add("administrador");
+        posibles.add("consultor");
+        posibles.add("funcionario");
+
+        for (int i = 0; i < p.size(); i++) {
+            actuales[i] = p.get(i).getPerfilName();
+            posibles.remove(actuales[i]);
+        }
+        for (int i = 0; i < disponibles.length; i++) {
+            disponibles[i] = posibles.get(i);
+        }
 
         jList1.setListData(actuales);
         jList2.setListData(disponibles);
         jPanel9.setVisible(false);
+        jButton7.setEnabled(true);
+    }
+
+    private void cargarPerfil() {
+        perfil = new PerfilUsuario(jTextField7.getText());
+
+        // TODO cargar en p los permiso del perfil
+        ArrayList<String> p = new ArrayList<String>();
+
+        String[] actuales = new String[p.size()];
+        String[] disponibles = new String[8 - p.size()];
+        ArrayList<String> posibles = new ArrayList<String>();
+        posibles.add("NuevoEnvio");
+        posibles.add("ConsultarEnvio");
+        posibles.add("NuevoUsuario");
+        posibles.add("ActualizarUsuario");
+        posibles.add("EliminarUsuario");
+        posibles.add("NuevoPerfil");
+        posibles.add("ActualizarPerfil");
+        posibles.add("EliminarPerfil");
+
+        for (int i = 0; i < p.size(); i++) {
+            actuales[i] = p.get(i);
+            posibles.remove(actuales[i]);
+        }
+        for (int i = 0; i < disponibles.length; i++) {
+            disponibles[i] = posibles.get(i);
+        }
+        Arrays.sort(actuales);
+        Arrays.sort(disponibles);
+
+        jList7.setListData(actuales);
+        jList8.setListData(disponibles);
+        jPanel20.setVisible(false);
+        jButton23.setEnabled(true);
     }
 
     private void swapOpciones(JList jl1, JList jl2) {
@@ -596,7 +639,7 @@ public class VentPrincipal extends javax.swing.JFrame {
                     .addComponent(jButton2))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Nuevo envio", jPanel1);
@@ -784,7 +827,7 @@ public class VentPrincipal extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Consultar envio", jPanel2);
@@ -821,7 +864,7 @@ public class VentPrincipal extends javax.swing.JFrame {
                     .addComponent(jLabel49))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel50)
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel54.setText("Perfiles del usuario");
@@ -1065,6 +1108,7 @@ public class VentPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButton7.setEnabled(false);
         jButton7.setText("Aceptar");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1170,7 +1214,7 @@ public class VentPrincipal extends javax.swing.JFrame {
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Actualizar usuario", jPanel7);
@@ -1258,7 +1302,7 @@ public class VentPrincipal extends javax.swing.JFrame {
                     .addComponent(jButton10))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(213, Short.MAX_VALUE))
+                .addContainerGap(235, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Eliminar usuario", jPanel8);
@@ -1291,13 +1335,21 @@ public class VentPrincipal extends javax.swing.JFrame {
         });
 
         jList6.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Administrar", "" };
+            String[] strings = {
+                "ActualizarPerfil",
+                "ActualizarUsuario",
+                "ConsultarEnvio",
+                "EliminarPerfil",
+                "EliminarUsuario",
+                "NuevoEnvio",
+                "NuevoPerfil",
+                "NuevoUsuario" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane7.setViewportView(jList6);
 
-        jLabel53.setText("Nombre del usuario:");
+        jLabel53.setText("Nombre del perfil:");
 
         jLabel61.setVisible(false);
         jLabel61.setForeground(new java.awt.Color(255, 0, 0));
@@ -1328,32 +1380,30 @@ public class VentPrincipal extends javax.swing.JFrame {
                 .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel61)
-                .addGap(871, 871, 871))
+                .addContainerGap())
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel17Layout.createSequentialGroup()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel17Layout.createSequentialGroup()
-                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton18, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
-                                    .addComponent(jButton17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(jPanel17Layout.createSequentialGroup()
-                                .addComponent(jLabel56, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-                                .addGap(75, 75, 75)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel57)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jButton17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton18, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)))
                     .addGroup(jPanel17Layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
-                        .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(928, 928, 928))
+                        .addComponent(jLabel56, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                        .addGap(75, 75, 75)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel57)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(924, 924, 924))
+            .addGroup(jPanel17Layout.createSequentialGroup()
+                .addGap(101, 101, 101)
+                .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(1000, Short.MAX_VALUE))
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1367,23 +1417,24 @@ public class VentPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel56)
                     .addComponent(jLabel57, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel17Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jButton17)
-                        .addGap(48, 48, 48)
-                        .addComponent(jButton18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel17Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE))
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel17Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
+                    .addGroup(jPanel17Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(jButton17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                        .addComponent(jButton18)
+                        .addGap(28, 28, 28)))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton14)
                     .addComponent(jButton19))
-                .addGap(56, 56, 56))
+                .addGap(24, 24, 24))
         );
 
         jPanel18.setVisible(false);
@@ -1484,6 +1535,7 @@ public class VentPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButton23.setEnabled(false);
         jButton23.setText("Aceptar");
         jButton23.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1499,7 +1551,7 @@ public class VentPrincipal extends javax.swing.JFrame {
         });
 
         jList8.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "" };
+            String[] strings = { ""  };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -1610,7 +1662,6 @@ public class VentPrincipal extends javax.swing.JFrame {
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 649, Short.MAX_VALUE)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1619,12 +1670,11 @@ public class VentPrincipal extends javax.swing.JFrame {
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 465, Short.MAX_VALUE)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Actualizar perfil", jPanel15);
@@ -1648,6 +1698,36 @@ public class VentPrincipal extends javax.swing.JFrame {
                 jButton26ActionPerformed(evt);
             }
         });
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel68)
+                .addGap(30, 30, 30)
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel21Layout.createSequentialGroup()
+                        .addComponent(jButton25, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(77, Short.MAX_VALUE))
+        );
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel68)
+                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton25)
+                    .addComponent(jButton26))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         jPanel22.setVisible(false);
 
@@ -1682,60 +1762,25 @@ public class VentPrincipal extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
-        jPanel21.setLayout(jPanel21Layout);
-        jPanel21Layout.setHorizontalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel21Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel21Layout.createSequentialGroup()
-                        .addComponent(jLabel68)
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel21Layout.createSequentialGroup()
-                                .addComponent(jButton25, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(211, 211, 211))
-        );
-        jPanel21Layout.setVerticalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel21Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel68)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton25)
-                    .addComponent(jButton26))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(213, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
         jPanel16Layout.setHorizontalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 649, Short.MAX_VALUE)
-            .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel16Layout.createSequentialGroup()
-                    .addGap(0, 21, Short.MAX_VALUE)
-                    .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 22, Short.MAX_VALUE)))
+            .addGroup(jPanel16Layout.createSequentialGroup()
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 465, Short.MAX_VALUE)
-            .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel16Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jPanel16Layout.createSequentialGroup()
+                .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(231, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Eliminar perfil", jPanel16);
@@ -1818,7 +1863,6 @@ public class VentPrincipal extends javax.swing.JFrame {
 
         jMenuItem8.setText("Nuevo perfil");
         jMenuItem8.setName("NuevoPerfil"); // NOI18N
-        jMenuItem8.setName("NuevoPerfil"); // NOI18N
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem8ActionPerformed(evt);
@@ -1836,7 +1880,6 @@ public class VentPrincipal extends javax.swing.JFrame {
         jMenu2.add(jMenuItem9);
 
         jMenuItem10.setText("Eliminar perfil");
-        jMenuItem10.setName("EliminarPerfil"); // NOI18N
         jMenuItem10.setName("EliminarPerfil"); // NOI18N
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1857,7 +1900,7 @@ public class VentPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
         );
 
         pack();
@@ -1928,9 +1971,9 @@ public class VentPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // Al desloguearse el usuario se vuelve al Login
-        Login vp = new Login();
-        vp.setVisible(true);
-        vp.setDefaultCloseOperation(VentPrincipal.EXIT_ON_CLOSE);
+        Login login = new Login();
+        login.setVisible(true);
+        login.setDefaultCloseOperation(Login.EXIT_ON_CLOSE);
         dispose();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
@@ -1976,8 +2019,10 @@ public class VentPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        jPanel9.setVisible(true);
-        jLabel43.setText(jTextField4.getText());
+        if (user.modificarUsuario()) {
+            jPanel9.setVisible(true);
+            jLabel43.setText(jTextField4.getText());
+        }
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -1985,11 +2030,17 @@ public class VentPrincipal extends javax.swing.JFrame {
         jTextField4.setText("");
         jList1.setListData(new Object[]{});
         jList2.setListData(new Object[]{});
+        jButton7.setEnabled(false);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        jLabel46.setText(jTextField5.getText());
-        jPanel10.setVisible(true);
+        if (!jTextField5.getText().equals("")) {
+            user = new Usuario(jTextField5.getText());
+            if (user.borrarUsuario()) {
+                jLabel46.setText(jTextField5.getText());
+                jPanel10.setVisible(true);
+            }
+        }
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -2003,8 +2054,17 @@ public class VentPrincipal extends javax.swing.JFrame {
         String username = jTextField3.getText();
         if (!spassword2.equals("") && !spassword1.equals("") && !username.equals("")) {
             if (Arrays.equals(jPasswordField1.getPassword(), jPasswordField2.getPassword())) {
-                jPanel11.setVisible(true);
-                jLabel49.setText(jTextField3.getText());
+                Object[] permisos = jList3.getSelectedValues();
+                ArrayList<String> perfiles = new ArrayList<String>();
+                for (Object o : permisos) {
+                    perfiles.add(o.toString());
+                }
+
+                user = new Usuario(username, spassword1, perfiles);
+                if (user.crearUsuario()) {
+                    jPanel11.setVisible(true);
+                    jLabel49.setText(jTextField3.getText());
+                }
             } else {
                 jLabel51.setVisible(true);
             }
@@ -2015,6 +2075,9 @@ public class VentPrincipal extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         jTextField3.setText("");
+        String[] strings = {"Administrador", "Consultor", "Funcionario"};
+        jList4.setListData(strings);
+        jList3.setListData(new Object[]{});
         jPasswordField1.setText("");
         jPasswordField2.setText("");
         jPanel11.setVisible(false);
@@ -2048,51 +2111,99 @@ public class VentPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-        // TODO add your handling code here:
+        swapOpciones(jList5, jList6);
     }//GEN-LAST:event_jButton17ActionPerformed
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
-        // TODO add your handling code here:
+        swapOpciones(jList6, jList5);
     }//GEN-LAST:event_jButton18ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        // TODO add your handling code here:
+        String perfilName = jTextField6.getText();
+        if (!perfilName.equals("")) {
+            Object[] permisos = jList5.getSelectedValues();
+            ArrayList<String> permisosPerfil = new ArrayList<String>();
+            for (Object o : permisos) {
+                permisosPerfil.add(o.toString());
+            }
+            perfil = new PerfilUsuario(perfilName);
+            // TODO retirar estos comentarios cuando este pronto perfilusuario
+//            if (perfil.crearPerfil()) {
+            jPanel18.setVisible(true);
+            jLabel63.setText(perfilName);
+//            }
+        } else {
+            jLabel61.setVisible(true);
+        }
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
-        // TODO add your handling code here:
+        jPanel18.setVisible(false);
+        jTextField6.setText("");
+        jList5.setListData(new Object[]{});
+        Object[] diponibles = new Object[]{
+            "NuevoEnvio",
+            "ConsultarEnvio",
+            "NuevoUsuario",
+            "ActualizarUsuario",
+            "EliminarUsuario",
+            "NuevoPerfil",
+            "ActualizarPerfil",
+            "EliminarPerfil"};
+        Arrays.sort(diponibles);
+        jList6.setListData(diponibles);
+        jLabel61.setVisible(false);
     }//GEN-LAST:event_jButton19ActionPerformed
 
     private void jTextField7KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField7KeyPressed
-        // TODO add your handling code here:
+        if (evt.getKeyChar() == java.awt.event.KeyEvent.VK_ENTER) {
+            // Al presionar ENTER carga los perfiles del usuario
+            cargarPerfil();
+        }
     }//GEN-LAST:event_jTextField7KeyPressed
 
     private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
-        // TODO add your handling code here:
+        cargarPerfil();
     }//GEN-LAST:event_jButton20ActionPerformed
 
     private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
-        // TODO add your handling code here:
+        swapOpciones(jList7, jList8);
     }//GEN-LAST:event_jButton21ActionPerformed
 
     private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
-        // TODO add your handling code here:
+        swapOpciones(jList8, jList7);
     }//GEN-LAST:event_jButton22ActionPerformed
 
     private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
-        // TODO add your handling code here:
+        // TODO retirar estos comentarios cuando este pronto perfilusuario
+//        if (perfil.modificarPerfil()) {
+        jPanel20.setVisible(true);
+        jLabel66.setText(jTextField7.getText());
+//        }
     }//GEN-LAST:event_jButton23ActionPerformed
 
     private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
-        // TODO add your handling code here:
+        jPanel20.setVisible(false);
+        jTextField7.setText("");
+        jList7.setListData(new Object[]{});
+        jList8.setListData(new Object[]{});
+        jButton23.setEnabled(false);
     }//GEN-LAST:event_jButton24ActionPerformed
 
     private void jButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton25ActionPerformed
-        // TODO add your handling code here:
+        if (!jTextField8.getText().equals("")) {
+            perfil = new PerfilUsuario(jTextField8.getText());
+            // TODO retirar estos comentarios cuando este pronto perfilusuario
+//        if (perfil.borrarPerfil()) {
+            jLabel70.setText(jTextField8.getText());
+            jPanel22.setVisible(true);
+//        }
+        }
     }//GEN-LAST:event_jButton25ActionPerformed
 
     private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed
-        // TODO add your handling code here:
+        jTextField8.setText("");
+        jPanel22.setVisible(false);
     }//GEN-LAST:event_jButton26ActionPerformed
 
     /**
