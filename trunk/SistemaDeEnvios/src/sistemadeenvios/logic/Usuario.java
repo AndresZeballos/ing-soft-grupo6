@@ -25,6 +25,13 @@ public class Usuario implements IUsuario {
         return userName;
     }
 
+    /**
+     * @return the listaPerfiles
+     */
+    public ArrayList<IPerfilUsuario> getListaPerfiles() {
+        return listaPerfiles;
+    }
+
     public Usuario(String userName) {
         IUserBuilder userBuilder = new StubUserBuilder();
         if (userBuilder.existeUserName(userName)) {
@@ -66,10 +73,20 @@ public class Usuario implements IUsuario {
 
     public boolean addPerfil(String perfilUsuario) {
         IPerfilBuilder perfilBuilder = new StubPerfilBuilder();
-        if(perfilBuilder.existePerfil(perfilUsuario)){
+        if (perfilBuilder.existePerfil(perfilUsuario)) {
             IPerfilUsuario perfil = perfilBuilder.getPerfil(perfilUsuario);
-            this.listaPerfiles.add(perfil);
-            return true;
+            Boolean contiene = false;
+            for (IPerfilUsuario p : listaPerfiles) {
+                if (p.getPerfilName().equals(perfil.getPerfilName())) {
+                    contiene = true;
+                    break;
+                }
+            }
+            if (!contiene) {
+                this.listaPerfiles.add(perfil);
+                return true;
+            }
+
         }
         return false;
     }
