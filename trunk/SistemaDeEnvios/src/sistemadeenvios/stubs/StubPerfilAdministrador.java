@@ -24,7 +24,9 @@ public class StubPerfilAdministrador implements IPerfilUsuario{
     {
         return true;
     }
-    public void agregarAcceso(String nombreComponente, boolean permitirAcesso)
+    public void agregarAcceso(String nombreComponente)
     {
     }
+    public void borrarTodo()
+    {}
 }
