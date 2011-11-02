@@ -17,6 +17,7 @@ public class PerfilUsuario implements IPerfilUsuario {
 
     public PerfilUsuario(String perfilName) {
         this.perfilName = perfilName;
+        this.accesos = new ArrayList();
     }
 
     public String getPerfilName() {
@@ -37,7 +38,7 @@ public class PerfilUsuario implements IPerfilUsuario {
     public boolean tieneComponente(String componente) {
         boolean contiene = false;
         String acceso;
-        for (Object comp : accesos)
+        for (Object comp : accesos.toArray())
         {
             acceso = (String)comp;
             if (acceso.equalsIgnoreCase(componente))
