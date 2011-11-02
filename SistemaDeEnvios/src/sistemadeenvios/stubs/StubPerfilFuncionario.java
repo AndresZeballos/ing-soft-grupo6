@@ -20,10 +20,11 @@ public class StubPerfilFuncionario implements IPerfilUsuario {
         return true;
     }
 
-    public void agregarAcceso(String nombreComponente, boolean permitirAcesso) {
+    public void agregarAcceso(String nombreComponente) {
     }
 
     public boolean tieneComponente(String componente) {
         return componente.equalsIgnoreCase("ConsultarEnvio") || componente.equalsIgnoreCase("NuevoEnvio");
     }
+    public void borrarTodo(){}
 }

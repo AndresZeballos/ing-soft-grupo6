@@ -12,6 +12,8 @@ package sistemadeenvios.logic;
 public interface IPerfilUsuario {
     String getPerfilName();
     boolean validarAcceso(String componente);
-    void agregarAcceso(String nombreComponente, boolean permitirAcesso);
+    void agregarAcceso(String nombreComponente);
     boolean tieneComponente(String componente);
+    void borrarTodo();
 }
+

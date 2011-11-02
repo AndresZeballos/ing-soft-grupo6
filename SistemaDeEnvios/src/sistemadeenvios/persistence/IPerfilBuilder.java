@@ -4,6 +4,7 @@
  */
 package sistemadeenvios.persistence;
 
+import java.util.ArrayList;
 import sistemadeenvios.logic.IPerfilUsuario;
 
 /**
@@ -14,6 +15,8 @@ public interface IPerfilBuilder {
     //String getPerfilName();
 
     boolean existePerfil(String perfilName);
-
+    boolean crearPerfil(String perfilName);
+    boolean borrarPerfil(String perfilName);
+    boolean modificarPerfil(String perfilName, ArrayList<String> permisos);
     IPerfilUsuario getPerfil(String perfilName);
 }

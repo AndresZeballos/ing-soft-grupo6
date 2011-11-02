@@ -4,7 +4,7 @@
  */
 package sistemadeenvios.logic;
 
-import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,7 +13,7 @@ import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
 public class PerfilUsuario implements IPerfilUsuario {
 
     private String perfilName;
-    private Hashtable accesos;
+    private ArrayList accesos;
 
     public PerfilUsuario(String perfilName) {
         this.perfilName = perfilName;
@@ -24,20 +24,34 @@ public class PerfilUsuario implements IPerfilUsuario {
     }
 
     public boolean validarAcceso(String componente) {
-        if (tieneComponente(componente)){
-            return Boolean.parseBoolean(accesos.get(componente).toString());
-        }
-        return false;
+        return tieneComponente(componente);
     }
 
-    public void agregarAcceso(String nombreComponente, boolean permitirAcesso) {
-        if (tieneComponente(nombreComponente)) {
-            accesos.remove(nombreComponente);
+    public void agregarAcceso(String nombreComponente) {
+        if (!tieneComponente(nombreComponente))
+        {
+            accesos.add(nombreComponente);
         }
-        accesos.put(nombreComponente.toLowerCase(), permitirAcesso);
     }
 
     public boolean tieneComponente(String componente) {
-        return accesos.containsKey(componente.toLowerCase());
+        boolean contiene = false;
+        String acceso;
+        for (Object comp : accesos)
+        {
+            acceso = (String)comp;
+            if (acceso.equalsIgnoreCase(componente))
+            {
+                contiene = true;
+            }
+        }
+        return contiene;
+    }
+    public void borrarTodo()
+    {
+        for (int i = 0; i < accesos.size(); i++)
+        {
+            this.accesos.remove(i);
+        }
     }
 }

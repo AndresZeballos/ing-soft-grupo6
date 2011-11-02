@@ -17,7 +17,7 @@ public class StubPerfilConsultar implements IPerfilUsuario{
         return "consultor";
     }
 
-    public void agregarAcceso(String nombreComponente, boolean permitirAcesso){
+    public void agregarAcceso(String nombreComponente){
     }
 
     public boolean validarAcceso(String componente)
@@ -29,4 +29,5 @@ public class StubPerfilConsultar implements IPerfilUsuario{
     {
         return componente.equalsIgnoreCase("ConsultarEnvio");
     }
+    public void borrarTodo(){}
 }
