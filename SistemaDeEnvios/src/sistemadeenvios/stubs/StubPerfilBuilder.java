@@ -50,7 +50,7 @@ public class StubPerfilBuilder implements IPerfilBuilder {
     public boolean borrarPerfil(String perfilName)
     {
         boolean borrar = false;
-        if (existePerfil(perfilName))
+        if (existePerfil(perfilName) && !perfilName.equalsIgnoreCase(perfilAdministrador))
         {
             borrar = true;
         }
@@ -59,7 +59,7 @@ public class StubPerfilBuilder implements IPerfilBuilder {
     public boolean modificarPerfil(String perfilName, ArrayList<String> permisos)
     {
         boolean modificar = false;
-        if (existePerfil(perfilName))
+        if (existePerfil(perfilName) && !perfilName.equalsIgnoreCase(perfilAdministrador))
         {
             modificar = true;
             String permiso;
