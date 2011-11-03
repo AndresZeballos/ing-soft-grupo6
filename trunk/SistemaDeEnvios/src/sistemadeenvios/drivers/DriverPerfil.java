@@ -18,26 +18,13 @@ import sistemadeenvios.stubs.StubPerfilBuilder;
  */
 public class DriverPerfil {
     public static void main(String args[]) {
-        IPerfilBuilder builder = new StubPerfilBuilder();
-        crearPerfil(builder);
-        borrarPerfil(builder);
-        modificarPerfil(builder);
         IPerfilUsuario perfil = new PerfilUsuario("nuevoPerfil");
-        addPermisos(perfil);
-        validarAccesoAdmin(builder);
+        probarPermisos(perfil);
+        crearPerfil(perfil);
+        modificarPerfil(perfil);
+        borrarPerfil(perfil);
     }
 
-    private static void validarAccesoAdmin(IPerfilBuilder builder) {
-        System.out.println("================ Validar Administrador ==================");
-        IPerfilUsuario admin = builder.getPerfil("administrador");
-        System.out.println("Se prueban 5 permisos al azar");
-        String randomComp;
-        for (int i = 0; i < 5; i++)
-        {
-            randomComp = randomString(10);
-            System.out.println("Validar acceso a componente " + randomComp + " : "+admin.validarAcceso(randomComp));
-        }
-    }
     private static String randomString(int length)
     {
         Random random = new Random();
@@ -59,53 +46,71 @@ public class DriverPerfil {
         return new String(buf);
     }
 
-    private static void addPermisos(IPerfilUsuario perfil) {
+    private static void probarPermisos(IPerfilUsuario perfil) {
         System.out.println("================ Agregar Permisos ==================");
         System.out.println("addPermisos");
         System.out.println("Se agrega permiso 'nuevoEnvio'");
         perfil.agregarAcceso("nuevoEnvio");
         System.out.println("Verificar que el perfil contiene el permiso agregado \"nuevoEnvio\": " + perfil.tieneComponente("nuevoEnvio"));
         System.out.println("Verificar que el perfil NO contiene el permiso \"nuevoEnvio1\": " + perfil.tieneComponente("nuevoEnvio1"));
+        System.out.println("");
+        System.out.println("Se prueban 5 permisos al azar");
+        String randomComp;
+        for (int i = 0; i < 5; i++)
+        {
+            randomComp = randomString(10);
+            System.out.println("Validar acceso a componente " + randomComp + " : "+perfil.validarAcceso(randomComp));
+        }
     }
 
-    private static void crearPerfil(IPerfilBuilder builder) {
+    private static void crearPerfil(IPerfilUsuario perfil) {
         System.out.println("================ Crear Perfiles ==================");
         System.out.println("crearPerfil nuevo");
-        System.out.println("Debe retornar \"true\": " + builder.crearPerfil("perfilNuevo"));
+        System.out.println("Debe retornar \"true\": " + perfil.crearPerfil());
 
         System.out.println("");
         System.out.println("crearPerfil existente");
-        System.out.println("Debe retornar \"false\": " + builder.crearPerfil("funcionario"));
+        System.out.println("Debe retornar \"false\": " + perfil.crearPerfil());
     }
 
-    private static void borrarPerfil(IPerfilBuilder builder) {
+    private static void borrarPerfil(IPerfilUsuario perfil) {
         System.out.println("================ Borrar Perfiles ==================");
         System.out.println("borrarPerfil existente");
-        System.out.println("Debe retornar \"true\": " + builder.borrarPerfil("funcionario"));
+        System.out.println("Debe retornar \"true\": " + perfil.borrarPerfil());
 
         System.out.println("");
         System.out.println("borrarPerfil no existente");
-        System.out.println("Debe retornar \"false\": " + builder.borrarPerfil("nuevoPerfil"));
-
-        System.out.println("");
-        System.out.println("borrarPerfil administrador");
-        System.out.println("Debe retornar \"false\" No se puede borrar el administrador: " + builder.borrarPerfil("administrador"));
+        System.out.println("Debe retornar \"false\": " + perfil.borrarPerfil());
     }
 
-    private static void modificarPerfil(IPerfilBuilder builder) {
-        ArrayList permisos = new ArrayList();
+    private static void modificarPerfil(IPerfilUsuario perfil) {
         System.out.println("================ Modificar Perfiles ==================");
-        permisos.add("ConsultarEnvio");
-        System.out.println("modificarPerfil existente");
-        System.out.println("Debe retornar \"true\": " + builder.modificarPerfil("funcionario",permisos));
+        perfil.agregarAcceso("modificarUsuario");
+        perfil.agregarAcceso("crearUsuario");
+        
+        System.out.println("modificarPerfil - Agrega permisos: modificarUsuario y crearUsuario");
+        System.out.println("Debe retornar \"true\": " + perfil.modificarPerfil());
 
         System.out.println("");
-        System.out.println("modificarPerfil no existente");
-        System.out.println("Debe retornar \"false\": " + builder.modificarPerfil("nuevoPerfil",permisos));
+        System.out.println("Verifica permiso modificarUsuario");
+        System.out.println("Debe retornar \"true\": " + perfil.validarAcceso("modificarUsuario"));
 
         System.out.println("");
-        System.out.println("modificarPerfil administrador");
-        System.out.println("Debe retornar \"false\". No se puede modificar el perfil admin: " + builder.modificarPerfil("administrador", permisos));
+        System.out.println("Verifica permiso crearUsuario");
+        System.out.println("Debe retornar \"true\": " + perfil.validarAcceso("crearUsuario"));
+
+        System.out.println("");
+        System.out.println("Verifica permiso nuevoEnvio");
+        System.out.println("Debe retornar \"true\": " + perfil.validarAcceso("nuevoEnvio"));
+
+        System.out.println("");
+        System.out.println("Se prueban 5 permisos al azar");
+        String randomComp;
+        for (int i = 0; i < 5; i++)
+        {
+            randomComp = randomString(10);
+            System.out.println("Validar acceso a componente " + randomComp + " : "+perfil.validarAcceso(randomComp));
+        }
     }
 
 }

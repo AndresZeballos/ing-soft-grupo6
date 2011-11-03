@@ -31,11 +31,12 @@ public class StubPerfilBuilder implements IPerfilBuilder {
         this.hashPerfiles.put(perfilFuncionario, new StubPerfilFuncionario());
     }
     public boolean existePerfil(String perfilName) {
-        boolean existe = false;
+        /*boolean existe = false;
         existe = existe || perfilConsultor.equalsIgnoreCase(perfilName);
         existe = existe || perfilAdministrador.equalsIgnoreCase(perfilName);
         existe = existe || perfilFuncionario.equalsIgnoreCase(perfilName);
-        return existe;
+        return existe;*/
+        return this.hashPerfiles.containsKey(perfilName);
     }
 
     public IPerfilUsuario getPerfil(String perfilName) {
@@ -68,13 +69,15 @@ public class StubPerfilBuilder implements IPerfilBuilder {
         if (existePerfil(perfilName) && !perfilName.equalsIgnoreCase(perfilAdministrador))
         {
             borrar = true;
+            this.hashPerfiles.remove(perfilName);
         }
         return borrar;
     }
     public boolean modificarPerfil(String perfilName, ArrayList<String> permisos)
     {
         boolean modificar = false;
-        if (existePerfil(perfilName) && !perfilName.equalsIgnoreCase(perfilAdministrador))
+        boolean existPerfil = existePerfil(perfilName);
+        if (existPerfil && !perfilName.equalsIgnoreCase(perfilAdministrador))
         {
             modificar = true;
             String permiso;
