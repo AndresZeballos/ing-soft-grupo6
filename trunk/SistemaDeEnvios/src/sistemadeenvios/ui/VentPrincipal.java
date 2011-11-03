@@ -2123,15 +2123,18 @@ public class VentPrincipal extends javax.swing.JFrame {
         if (!perfilName.equals("")) {
             Object[] permisos = jList5.getSelectedValues();
             ArrayList<String> permisosPerfil = new ArrayList<String>();
+            perfil = new PerfilUsuario(perfilName);
             for (Object o : permisos) {
                 permisosPerfil.add(o.toString());
+                perfil.agregarAcceso(o.toString());
             }
-            perfil = new PerfilUsuario(perfilName);
+            //perfil = new PerfilUsuario(perfilName);
+
             // TODO retirar estos comentarios cuando este pronto perfilusuario
-//            if (perfil.crearPerfil()) {
-            jPanel18.setVisible(true);
-            jLabel63.setText(perfilName);
-//            }
+            if (perfil.crearPerfil()) {
+                jPanel18.setVisible(true);
+                jLabel63.setText(perfilName);
+            }
         } else {
             jLabel61.setVisible(true);
         }
@@ -2176,10 +2179,10 @@ public class VentPrincipal extends javax.swing.JFrame {
 
     private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
         // TODO retirar estos comentarios cuando este pronto perfilusuario
-//        if (perfil.modificarPerfil()) {
-        jPanel20.setVisible(true);
-        jLabel66.setText(jTextField7.getText());
-//        }
+        if (perfil.modificarPerfil()) {
+            jPanel20.setVisible(true);
+            jLabel66.setText(jTextField7.getText());
+        }
     }//GEN-LAST:event_jButton23ActionPerformed
 
     private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
@@ -2194,10 +2197,10 @@ public class VentPrincipal extends javax.swing.JFrame {
         if (!jTextField8.getText().equals("")) {
             perfil = new PerfilUsuario(jTextField8.getText());
             // TODO retirar estos comentarios cuando este pronto perfilusuario
-//        if (perfil.borrarPerfil()) {
-            jLabel70.setText(jTextField8.getText());
-            jPanel22.setVisible(true);
-//        }
+            if (perfil.borrarPerfil()) {
+                jLabel70.setText(jTextField8.getText());
+                jPanel22.setVisible(true);
+            }
         }
     }//GEN-LAST:event_jButton25ActionPerformed
 

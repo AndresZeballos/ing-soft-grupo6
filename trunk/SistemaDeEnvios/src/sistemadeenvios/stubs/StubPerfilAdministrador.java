@@ -29,4 +29,7 @@ public class StubPerfilAdministrador implements IPerfilUsuario{
     }
     public void borrarTodo()
     {}
+    public boolean crearPerfil() {return true; }
+    public boolean modificarPerfil(){return true; }
+    public boolean borrarPerfil(){return true; }
 }

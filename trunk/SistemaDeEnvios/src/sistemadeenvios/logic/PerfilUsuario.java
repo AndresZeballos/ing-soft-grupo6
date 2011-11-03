@@ -5,6 +5,8 @@
 package sistemadeenvios.logic;
 
 import java.util.ArrayList;
+import sistemadeenvios.persistence.IPerfilBuilder;
+import sistemadeenvios.stubs.StubPerfilBuilder;
 
 /**
  *
@@ -13,11 +15,13 @@ import java.util.ArrayList;
 public class PerfilUsuario implements IPerfilUsuario {
 
     private String perfilName;
-    private ArrayList accesos;
+    private ArrayList<String> accesos;
+    IPerfilBuilder builder;
 
     public PerfilUsuario(String perfilName) {
         this.perfilName = perfilName;
-        this.accesos = new ArrayList();
+        this.accesos = new ArrayList<String>();
+        this.builder = new StubPerfilBuilder();
     }
 
     public String getPerfilName() {
@@ -54,5 +58,19 @@ public class PerfilUsuario implements IPerfilUsuario {
         {
             this.accesos.remove(i);
         }
+    }
+    public boolean crearPerfil()
+    {
+        boolean resultado = true && this.builder.crearPerfil(this.perfilName);
+        resultado = resultado && this.builder.modificarPerfil(this.perfilName, this.accesos);
+        return resultado;
+    }
+    public boolean modificarPerfil()
+    {
+        return this.builder.modificarPerfil(this.perfilName, this.accesos);
+    }
+    public boolean borrarPerfil()
+    {
+        return this.builder.borrarPerfil(this.perfilName);
     }
 }
