@@ -5,8 +5,10 @@
 package sistemadeenvios.stubs;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import sistemadeenvios.persistence.IPerfilBuilder;
 import sistemadeenvios.logic.IPerfilUsuario;
+import sistemadeenvios.logic.PerfilUsuario;
 
 /**
  *
@@ -19,7 +21,15 @@ public class StubPerfilBuilder implements IPerfilBuilder {
     final String perfilConsultor = "consultor";
     final String perfilAdministrador = "administrador";
     final String perfilFuncionario = "funcionario";
+    private Hashtable hashPerfiles;
 
+    public StubPerfilBuilder()
+    {
+        this.hashPerfiles = new Hashtable();
+        this.hashPerfiles.put(perfilConsultor, new StubPerfilConsultar());
+        this.hashPerfiles.put(perfilAdministrador, new StubPerfilAdministrador());
+        this.hashPerfiles.put(perfilFuncionario, new StubPerfilFuncionario());
+    }
     public boolean existePerfil(String perfilName) {
         boolean existe = false;
         existe = existe || perfilConsultor.equalsIgnoreCase(perfilName);
@@ -29,13 +39,17 @@ public class StubPerfilBuilder implements IPerfilBuilder {
     }
 
     public IPerfilUsuario getPerfil(String perfilName) {
-        if (perfilName.equalsIgnoreCase(perfilAdministrador)) {
+        IPerfilUsuario perfil = (IPerfilUsuario)this.hashPerfiles.get(perfilName);
+        return perfil;
+        /*if (perfilName.equalsIgnoreCase(perfilAdministrador)) {
             return new StubPerfilAdministrador();
         } else if (perfilName.equalsIgnoreCase(perfilFuncionario)) {
             return new StubPerfilFuncionario();
-        } else /* if (userName.equalsIgnoreCase("consultor")) */ {
+        } else if (perfilName.equalsIgnoreCase("consultor")) {
             return new StubPerfilConsultar();
-        }
+        } else {
+
+        }*/
     }
     
     public boolean crearPerfil(String perfilName)
@@ -44,6 +58,7 @@ public class StubPerfilBuilder implements IPerfilBuilder {
         if (!existePerfil(perfilName))
         {
             creacion = true;
+            this.hashPerfiles.put(perfilName, new PerfilUsuario(perfilName));
         }
         return creacion;
     }
