@@ -5,12 +5,15 @@
 
 package sistemadeenvios.logic;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Fede
  */
 public interface IPerfilUsuario {
     String getPerfilName();
+    ArrayList<String> getPermisos();
     boolean validarAcceso(String componente);
     void agregarAcceso(String nombreComponente);
     boolean tieneComponente(String componente);

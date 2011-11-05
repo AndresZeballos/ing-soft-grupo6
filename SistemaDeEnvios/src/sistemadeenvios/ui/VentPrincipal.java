@@ -176,11 +176,6 @@ public class VentPrincipal extends javax.swing.JFrame {
     private void cargarPerfil() {
         perfil = new PerfilUsuario(jTextField7.getText());
 
-        // TODO cargar en p los permiso del perfil
-        ArrayList<String> p = new ArrayList<String>();
-
-        String[] actuales = new String[p.size()];
-        String[] disponibles = new String[8 - p.size()];
         ArrayList<String> posibles = new ArrayList<String>();
         posibles.add("NuevoEnvio");
         posibles.add("ConsultarEnvio");
@@ -190,6 +185,17 @@ public class VentPrincipal extends javax.swing.JFrame {
         posibles.add("NuevoPerfil");
         posibles.add("ActualizarPerfil");
         posibles.add("EliminarPerfil");
+
+        ArrayList<String> p = new ArrayList<String>();
+
+        for (String posible : posibles) {
+            if (perfil.tieneComponente(posible)) {
+                p.add(posible);
+            }
+        }
+
+        String[] actuales = new String[p.size()];
+        String[] disponibles = new String[8 - p.size()];
 
         for (int i = 0; i < p.size(); i++) {
             actuales[i] = p.get(i);
@@ -347,6 +353,7 @@ public class VentPrincipal extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList();
+        jLabel75 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel39 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
@@ -356,6 +363,7 @@ public class VentPrincipal extends javax.swing.JFrame {
         jLabel45 = new javax.swing.JLabel();
         jLabel46 = new javax.swing.JLabel();
         jLabel47 = new javax.swing.JLabel();
+        jLabel74 = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
         jLabel56 = new javax.swing.JLabel();
@@ -390,6 +398,7 @@ public class VentPrincipal extends javax.swing.JFrame {
         jButton24 = new javax.swing.JButton();
         jScrollPane9 = new javax.swing.JScrollPane();
         jList8 = new javax.swing.JList();
+        jLabel73 = new javax.swing.JLabel();
         jPanel20 = new javax.swing.JPanel();
         jLabel65 = new javax.swing.JLabel();
         jLabel66 = new javax.swing.JLabel();
@@ -400,6 +409,7 @@ public class VentPrincipal extends javax.swing.JFrame {
         jTextField8 = new javax.swing.JTextField();
         jButton25 = new javax.swing.JButton();
         jButton26 = new javax.swing.JButton();
+        jLabel72 = new javax.swing.JLabel();
         jPanel22 = new javax.swing.JPanel();
         jLabel69 = new javax.swing.JLabel();
         jLabel70 = new javax.swing.JLabel();
@@ -872,7 +882,7 @@ public class VentPrincipal extends javax.swing.JFrame {
         jLabel55.setText("Perfiles disponibles");
 
         jList3.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "" };
+            String[] strings = {  };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -1088,7 +1098,7 @@ public class VentPrincipal extends javax.swing.JFrame {
         jLabel41.setText("Perfiles disponibles");
 
         jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "" };
+            String[] strings = {  };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -1124,11 +1134,15 @@ public class VentPrincipal extends javax.swing.JFrame {
         });
 
         jList2.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "" };
+            String[] strings = {  };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane3.setViewportView(jList2);
+
+        jLabel75.setVisible(false);
+        jLabel75.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel75.setText("No existe el usuario");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -1160,13 +1174,15 @@ public class VentPrincipal extends javax.swing.JFrame {
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel41))
                         .addGap(10, 10, 10)))
-                .addGap(27, 27, 27))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel75)
+                .addGap(87, 87, 87))
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addGap(87, 87, 87)
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(260, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1175,7 +1191,8 @@ public class VentPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel38)
-                    .addComponent(jButton13))
+                    .addComponent(jButton13)
+                    .addComponent(jLabel75))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel40)
@@ -1203,10 +1220,9 @@ public class VentPrincipal extends javax.swing.JFrame {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(172, Short.MAX_VALUE))
+            .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1222,6 +1238,12 @@ public class VentPrincipal extends javax.swing.JFrame {
         jPanel8.setName("EliminarUsuario"); // NOI18N
 
         jLabel39.setText("Nombre del usuario:");
+
+        jTextField5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField5KeyPressed(evt);
+            }
+        });
 
         jButton9.setText("Eliminar");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
@@ -1270,6 +1292,10 @@ public class VentPrincipal extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
+        jLabel74.setVisible(false);
+        jLabel74.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel74.setText("No existe el usuario");
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -1281,13 +1307,16 @@ public class VentPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel39)
                         .addGap(30, 30, 30)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(243, 243, 243))
+                                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel74)))))
+                .addGap(246, 246, 246))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1295,7 +1324,8 @@ public class VentPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel39)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel74))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton9)
@@ -1314,7 +1344,7 @@ public class VentPrincipal extends javax.swing.JFrame {
         jLabel57.setText("Permisos disponibles");
 
         jList5.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "" };
+            String[] strings = { };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -1515,7 +1545,7 @@ public class VentPrincipal extends javax.swing.JFrame {
         jLabel60.setText("Permisos disponibles");
 
         jList7.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "" };
+            String[] strings = { };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -1551,11 +1581,15 @@ public class VentPrincipal extends javax.swing.JFrame {
         });
 
         jList8.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { ""  };
+            String[] strings = { };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane9.setViewportView(jList8);
+
+        jLabel73.setVisible(false);
+        jLabel73.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel73.setText("No existe el perfil");
 
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
@@ -1587,13 +1621,15 @@ public class VentPrincipal extends javax.swing.JFrame {
                             .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel60))
                         .addGap(10, 10, 10)))
-                .addGap(27, 27, 27))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel73)
+                .addGap(67, 67, 67))
             .addGroup(jPanel19Layout.createSequentialGroup()
                 .addGap(87, 87, 87)
                 .addComponent(jButton23, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jButton24, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(229, Short.MAX_VALUE))
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1602,7 +1638,8 @@ public class VentPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel58)
-                    .addComponent(jButton20))
+                    .addComponent(jButton20)
+                    .addComponent(jLabel73))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel59)
@@ -1664,9 +1701,9 @@ public class VentPrincipal extends javax.swing.JFrame {
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(172, Short.MAX_VALUE))
+                    .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1685,6 +1722,12 @@ public class VentPrincipal extends javax.swing.JFrame {
 
         jLabel68.setText("Nombre del perfil:");
 
+        jTextField8.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField8KeyPressed(evt);
+            }
+        });
+
         jButton25.setText("Eliminar");
         jButton25.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1699,6 +1742,10 @@ public class VentPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabel72.setVisible(false);
+        jLabel72.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel72.setText("No existe el perfil");
+
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
@@ -1707,13 +1754,16 @@ public class VentPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel68)
                 .addGap(30, 30, 30)
-                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel21Layout.createSequentialGroup()
-                        .addComponent(jButton25, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton25, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(77, Short.MAX_VALUE))
+                        .addComponent(jButton26, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel21Layout.createSequentialGroup()
+                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel72)))
+                .addContainerGap(234, Short.MAX_VALUE))
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1721,7 +1771,8 @@ public class VentPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel68)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel72))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton25)
@@ -1767,12 +1818,10 @@ public class VentPrincipal extends javax.swing.JFrame {
         jPanel16Layout.setHorizontalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createSequentialGroup()
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(177, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(265, Short.MAX_VALUE))
+            .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2000,13 +2049,22 @@ public class VentPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        cargarUsuario();
+        try {
+            cargarUsuario();
+        } catch (Exception e) {
+            jLabel75.setVisible(true);
+        }
 }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jTextField4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyPressed
+        jLabel75.setVisible(false);
         if (evt.getKeyChar() == java.awt.event.KeyEvent.VK_ENTER) {
             // Al presionar ENTER carga los perfiles del usuario
-            cargarUsuario();
+            try {
+                cargarUsuario();
+            } catch (Exception e) {
+                jLabel75.setVisible(true);
+            }
         }
     }//GEN-LAST:event_jTextField4KeyPressed
 
@@ -2019,6 +2077,11 @@ public class VentPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        ListModel list = jList1.getModel();
+        user.borrarPerfiles();
+        for (int i = 0; i < list.getSize(); i++) {
+            user.addPerfil(list.getElementAt(i).toString());
+        }
         if (user.modificarUsuario()) {
             jPanel9.setVisible(true);
             jLabel43.setText(jTextField4.getText());
@@ -2031,14 +2094,20 @@ public class VentPrincipal extends javax.swing.JFrame {
         jList1.setListData(new Object[]{});
         jList2.setListData(new Object[]{});
         jButton7.setEnabled(false);
+        jLabel75.setVisible(false);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        jLabel74.setVisible(false);
         if (!jTextField5.getText().equals("")) {
-            user = new Usuario(jTextField5.getText());
-            if (user.borrarUsuario()) {
-                jLabel46.setText(jTextField5.getText());
-                jPanel10.setVisible(true);
+            try {
+                user = new Usuario(jTextField5.getText());
+                if (user.borrarUsuario()) {
+                    jLabel46.setText(jTextField5.getText());
+                    jPanel10.setVisible(true);
+                }
+            } catch (Exception e) {
+                jLabel74.setVisible(true);
             }
         }
     }//GEN-LAST:event_jButton9ActionPerformed
@@ -2054,12 +2123,15 @@ public class VentPrincipal extends javax.swing.JFrame {
         String username = jTextField3.getText();
         if (!spassword2.equals("") && !spassword1.equals("") && !username.equals("")) {
             if (Arrays.equals(jPasswordField1.getPassword(), jPasswordField2.getPassword())) {
-                Object[] permisos = jList3.getSelectedValues();
+                ListModel list = jList3.getModel();
+                Object[] permisos = new Object[list.getSize()];
+                for (int i = 0; i < permisos.length; i++) {
+                    permisos[i] = list.getElementAt(i);
+                }
                 ArrayList<String> perfiles = new ArrayList<String>();
                 for (Object o : permisos) {
                     perfiles.add(o.toString());
                 }
-
                 user = new Usuario(username, spassword1, perfiles);
                 if (user.crearUsuario()) {
                     jPanel11.setVisible(true);
@@ -2088,6 +2160,7 @@ public class VentPrincipal extends javax.swing.JFrame {
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         jTextField5.setText("");
         jPanel10.setVisible(false);
+        jLabel74.setVisible(false);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
@@ -2121,16 +2194,11 @@ public class VentPrincipal extends javax.swing.JFrame {
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         String perfilName = jTextField6.getText();
         if (!perfilName.equals("")) {
-            Object[] permisos = jList5.getSelectedValues();
-            ArrayList<String> permisosPerfil = new ArrayList<String>();
+            ListModel list = jList5.getModel();
             perfil = new PerfilUsuario(perfilName);
-            for (Object o : permisos) {
-                permisosPerfil.add(o.toString());
-                perfil.agregarAcceso(o.toString());
+            for (int i = 0; i < list.getSize(); i++) {
+                perfil.agregarAcceso(list.getElementAt(i).toString());
             }
-            //perfil = new PerfilUsuario(perfilName);
-
-            // TODO retirar estos comentarios cuando este pronto perfilusuario
             if (perfil.crearPerfil()) {
                 jPanel18.setVisible(true);
                 jLabel63.setText(perfilName);
@@ -2159,14 +2227,23 @@ public class VentPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton19ActionPerformed
 
     private void jTextField7KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField7KeyPressed
+        jLabel73.setVisible(false);
         if (evt.getKeyChar() == java.awt.event.KeyEvent.VK_ENTER) {
             // Al presionar ENTER carga los perfiles del usuario
-            cargarPerfil();
+            try {
+                cargarPerfil();
+            } catch (Exception e) {
+                jLabel73.setVisible(true);
+            }
         }
     }//GEN-LAST:event_jTextField7KeyPressed
 
     private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
-        cargarPerfil();
+        try {
+            cargarPerfil();
+        } catch (Exception e) {
+            jLabel73.setVisible(true);
+        }
     }//GEN-LAST:event_jButton20ActionPerformed
 
     private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
@@ -2178,7 +2255,11 @@ public class VentPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton22ActionPerformed
 
     private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
-        // TODO retirar estos comentarios cuando este pronto perfilusuario
+        ListModel list = jList7.getModel();
+        perfil.borrarPermisosPerfil();
+        for (int i = 0; i < list.getSize(); i++) {
+            perfil.agregarAcceso(list.getElementAt(i).toString());
+        }
         if (perfil.modificarPerfil()) {
             jPanel20.setVisible(true);
             jLabel66.setText(jTextField7.getText());
@@ -2191,15 +2272,18 @@ public class VentPrincipal extends javax.swing.JFrame {
         jList7.setListData(new Object[]{});
         jList8.setListData(new Object[]{});
         jButton23.setEnabled(false);
+        jLabel73.setVisible(false);
     }//GEN-LAST:event_jButton24ActionPerformed
 
     private void jButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton25ActionPerformed
+        jLabel72.setVisible(false);
         if (!jTextField8.getText().equals("")) {
             perfil = new PerfilUsuario(jTextField8.getText());
-            // TODO retirar estos comentarios cuando este pronto perfilusuario
             if (perfil.borrarPerfil()) {
                 jLabel70.setText(jTextField8.getText());
                 jPanel22.setVisible(true);
+            } else{
+                jLabel72.setVisible(true);
             }
         }
     }//GEN-LAST:event_jButton25ActionPerformed
@@ -2207,7 +2291,16 @@ public class VentPrincipal extends javax.swing.JFrame {
     private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed
         jTextField8.setText("");
         jPanel22.setVisible(false);
+        jLabel72.setVisible(false);
     }//GEN-LAST:event_jButton26ActionPerformed
+
+    private void jTextField5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyPressed
+        jLabel74.setVisible(false);
+    }//GEN-LAST:event_jTextField5KeyPressed
+
+    private void jTextField8KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField8KeyPressed
+        jLabel72.setVisible(false);
+    }//GEN-LAST:event_jTextField8KeyPressed
 
     /**
      * @param args the command line arguments
@@ -2319,6 +2412,10 @@ public class VentPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel70;
     private javax.swing.JLabel jLabel71;
+    private javax.swing.JLabel jLabel72;
+    private javax.swing.JLabel jLabel73;
+    private javax.swing.JLabel jLabel74;
+    private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JList jList1;
