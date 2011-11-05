@@ -21,7 +21,7 @@ public class PerfilUsuario implements IPerfilUsuario {
     public PerfilUsuario(String perfilName) {
         this.perfilName = perfilName;
         this.accesos = new ArrayList<String>();
-        this.builder = new StubPerfilBuilder();
+        this.builder = StubPerfilBuilder.getInstance();
     }
 
     public String getPerfilName() {

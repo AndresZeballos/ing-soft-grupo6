@@ -17,12 +17,21 @@ import sistemadeenvios.logic.PerfilUsuario;
 public class StubPerfilBuilder implements IPerfilBuilder {
     //Nombres de perfiles stub
 
+    private static StubPerfilBuilder INSTANCE;
+
     final String perfilConsultor = "consultor";
     final String perfilAdministrador = "administrador";
     final String perfilFuncionario = "funcionario";
     private Hashtable hashPerfiles;
 
-    public StubPerfilBuilder() {
+    public static StubPerfilBuilder getInstance() {
+        if (INSTANCE == null){
+            INSTANCE = new StubPerfilBuilder();
+        }
+        return INSTANCE;
+    }
+
+    private StubPerfilBuilder() {
         this.hashPerfiles = new Hashtable();
         this.hashPerfiles.put(perfilConsultor, new StubPerfilConsultar());
         this.hashPerfiles.put(perfilAdministrador, new StubPerfilAdministrador());

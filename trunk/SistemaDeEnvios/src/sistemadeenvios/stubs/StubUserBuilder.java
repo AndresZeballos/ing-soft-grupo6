@@ -17,10 +17,35 @@ import sistemadeenvios.persistence.IUserBuilder;
  */
 public class StubUserBuilder implements IUserBuilder {
 
+    private static StubUserBuilder INSTANCE;
+
     final String usuarioConsultor = "consultor";
     final String usuarioAdministrador = "admin";
     final String usuarioFuncionario = "funcionario";
     private Hashtable hashUsuarios;
+
+    public static StubUserBuilder getInstance() {
+        if (INSTANCE == null){
+            INSTANCE = new StubUserBuilder();
+        }
+        return INSTANCE;
+    }
+
+    private StubUserBuilder() {
+        this.hashUsuarios = new Hashtable();
+        ArrayList<String> aux = new ArrayList<String>();
+        aux.add(usuarioConsultor);
+        this.hashUsuarios.put(usuarioConsultor, new Usuario(usuarioConsultor, usuarioConsultor, aux));
+
+        aux = new ArrayList<String>();
+        aux.add(usuarioAdministrador);
+        this.hashUsuarios.put(usuarioAdministrador, new Usuario(usuarioAdministrador, usuarioAdministrador, aux));
+
+        aux = new ArrayList<String>();
+        aux.add(usuarioFuncionario);
+        this.hashUsuarios.put(usuarioFuncionario, new Usuario(usuarioFuncionario, usuarioFuncionario, aux));
+
+    }
 
     public boolean existeUserName(String userName) {
         return this.hashUsuarios.containsKey(userName);

@@ -34,7 +34,7 @@ public class Usuario implements IUsuario {
     }
 
     public Usuario(String userName) {
-        this.builder = new StubUserBuilder();
+        this.builder = StubUserBuilder.getInstance();
         if (this.builder.existeUserName(userName)) {
             this.userName = userName;
             this.password = this.builder.getPassword(userName);
@@ -44,7 +44,7 @@ public class Usuario implements IUsuario {
 
     public Usuario(String userName, String password,
             ArrayList<String> listaPerfiles) {
-        this.builder = new StubUserBuilder();
+        this.builder = StubUserBuilder.getInstance();
         this.userName = userName;
         this.password = password;
         this.listaPerfiles = this.builder.getPerfiles(userName);
@@ -73,7 +73,7 @@ public class Usuario implements IUsuario {
     }
 
     public boolean addPerfil(String perfilUsuario) {
-        IPerfilBuilder perfilBuilder = new StubPerfilBuilder();
+        IPerfilBuilder perfilBuilder = StubPerfilBuilder.getInstance();
         if (perfilBuilder.existePerfil(perfilUsuario)) {
             IPerfilUsuario perfil = perfilBuilder.getPerfil(perfilUsuario);
             Boolean contiene = false;
