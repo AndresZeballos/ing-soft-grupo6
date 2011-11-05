@@ -15,7 +15,7 @@ public interface IPerfilBuilder {
     //String getPerfilName();
 
     boolean existePerfil(String perfilName);
-    boolean crearPerfil(String perfilName);
+    boolean crearPerfil(String perfilName, ArrayList<String> permisos);
     boolean borrarPerfil(String perfilName);
     boolean modificarPerfil(String perfilName, ArrayList<String> permisos);
     IPerfilUsuario getPerfil(String perfilName);

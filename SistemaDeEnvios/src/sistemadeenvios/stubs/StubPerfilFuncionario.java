@@ -26,7 +26,7 @@ public class StubPerfilFuncionario implements IPerfilUsuario {
     public boolean tieneComponente(String componente) {
         return componente.equalsIgnoreCase("ConsultarEnvio") || componente.equalsIgnoreCase("NuevoEnvio");
     }
-    public void borrarTodo(){}
+    public void borrarPermisosPerfil(){}
     public boolean crearPerfil() {return true; }
     public boolean modificarPerfil(){return true; }
     public boolean borrarPerfil(){return true; }

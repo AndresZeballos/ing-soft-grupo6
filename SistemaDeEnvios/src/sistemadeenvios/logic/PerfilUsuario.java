@@ -29,48 +29,41 @@ public class PerfilUsuario implements IPerfilUsuario {
     }
 
     public boolean validarAcceso(String componente) {
+        // Si tiene el componente es porque tiene acceso a el
         return tieneComponente(componente);
     }
 
     public void agregarAcceso(String nombreComponente) {
-        if (!tieneComponente(nombreComponente))
-        {
+        if (!tieneComponente(nombreComponente)) {
             accesos.add(nombreComponente);
         }
     }
 
     public boolean tieneComponente(String componente) {
         boolean contiene = false;
-        String acceso;
-        for (Object comp : accesos.toArray())
-        {
-            acceso = (String)comp;
-            if (acceso.equalsIgnoreCase(componente))
-            {
+        for (String acceso : accesos) {
+            if (acceso.equalsIgnoreCase(componente)) {
                 contiene = true;
             }
         }
         return contiene;
     }
-    public void borrarTodo()
-    {
-        for (int i = 0; i < accesos.size(); i++)
-        {
+
+    public void borrarPermisosPerfil() {
+        for (int i = 0; i < accesos.size(); i++) {
             this.accesos.remove(i);
         }
     }
-    public boolean crearPerfil()
-    {
-        boolean resultado = true && this.builder.crearPerfil(this.perfilName);
-        resultado = resultado && this.builder.modificarPerfil(this.perfilName, this.accesos);
-        return resultado;
+
+    public boolean crearPerfil() {
+        return this.builder.crearPerfil(this.perfilName, this.accesos);
     }
-    public boolean modificarPerfil()
-    {
+
+    public boolean modificarPerfil() {
         return this.builder.modificarPerfil(this.perfilName, this.accesos);
     }
-    public boolean borrarPerfil()
-    {
+
+    public boolean borrarPerfil() {
         return this.builder.borrarPerfil(this.perfilName);
     }
 }
