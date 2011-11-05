@@ -29,7 +29,7 @@ public class StubPerfilConsultar implements IPerfilUsuario{
     {
         return componente.equalsIgnoreCase("ConsultarEnvio");
     }
-    public void borrarTodo()
+    public void borrarPermisosPerfil()
     {}
     public boolean crearPerfil() {return true; }
     public boolean modificarPerfil(){return true; }

@@ -14,7 +14,7 @@ public interface IPerfilUsuario {
     boolean validarAcceso(String componente);
     void agregarAcceso(String nombreComponente);
     boolean tieneComponente(String componente);
-    void borrarTodo();
+    void borrarPermisosPerfil();
     boolean crearPerfil();
     boolean modificarPerfil();
     boolean borrarPerfil();

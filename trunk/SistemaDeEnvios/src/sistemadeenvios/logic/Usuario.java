@@ -17,6 +17,7 @@ public class Usuario implements IUsuario {
 
     private ArrayList<IPerfilUsuario> listaPerfiles;
     private String userName, password;
+    private IUserBuilder builder;
 
     /**
      * @return the userName
@@ -33,20 +34,20 @@ public class Usuario implements IUsuario {
     }
 
     public Usuario(String userName) {
-        IUserBuilder userBuilder = new StubUserBuilder();
-        if (userBuilder.existeUserName(userName)) {
+        this.builder = new StubUserBuilder();
+        if (this.builder.existeUserName(userName)) {
             this.userName = userName;
-            this.password = userBuilder.getPassword(userName);
-            this.listaPerfiles = userBuilder.getPerfiles(userName);
+            this.password = this.builder.getPassword(userName);
+            this.listaPerfiles = this.builder.getPerfiles(userName);
         }
     }
 
     public Usuario(String userName, String password,
             ArrayList<String> listaPerfiles) {
-        IUserBuilder userBuilder = new StubUserBuilder();
+        this.builder = new StubUserBuilder();
         this.userName = userName;
         this.password = password;
-        this.listaPerfiles = userBuilder.getPerfiles(userName);
+        this.listaPerfiles = this.builder.getPerfiles(userName);
     }
 
     public boolean validarPassword(String password) {
@@ -86,7 +87,6 @@ public class Usuario implements IUsuario {
                 this.listaPerfiles.add(perfil);
                 return true;
             }
-
         }
         return false;
     }
@@ -96,25 +96,22 @@ public class Usuario implements IUsuario {
      * usuario de la base de datos.
      */
     public boolean crearUsuario() {
-        IUserBuilder constructor = new StubUserBuilder();
         ArrayList<String> lista = new ArrayList<String>();
         for (IPerfilUsuario p : this.listaPerfiles) {
             lista.add(p.getPerfilName());
         }
-        return constructor.crearUsuario(this.userName, this.password, lista);
+        return this.builder.crearUsuario(this.userName, this.password, lista);
     }
 
     public boolean borrarUsuario() {
-        IUserBuilder constructor = new StubUserBuilder();
-        return constructor.borrarUsuario(this.userName);
+        return this.builder.borrarUsuario(this.userName);
     }
 
     public boolean modificarUsuario() {
-        IUserBuilder constructor = new StubUserBuilder();
         ArrayList<String> lista = new ArrayList<String>();
         for (IPerfilUsuario p : this.listaPerfiles) {
             lista.add(p.getPerfilName());
         }
-        return constructor.crearUsuario(this.userName, this.password, lista);
+        return this.builder.crearUsuario(this.userName, this.password, lista);
     }
 }

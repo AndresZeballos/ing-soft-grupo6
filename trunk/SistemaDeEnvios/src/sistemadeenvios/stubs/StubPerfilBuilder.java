@@ -14,82 +14,58 @@ import sistemadeenvios.logic.PerfilUsuario;
  *
  * @author agustin
  */
-
-
 public class StubPerfilBuilder implements IPerfilBuilder {
     //Nombres de perfiles stub
+
     final String perfilConsultor = "consultor";
     final String perfilAdministrador = "administrador";
     final String perfilFuncionario = "funcionario";
     private Hashtable hashPerfiles;
 
-    public StubPerfilBuilder()
-    {
+    public StubPerfilBuilder() {
         this.hashPerfiles = new Hashtable();
         this.hashPerfiles.put(perfilConsultor, new StubPerfilConsultar());
         this.hashPerfiles.put(perfilAdministrador, new StubPerfilAdministrador());
         this.hashPerfiles.put(perfilFuncionario, new StubPerfilFuncionario());
     }
+
     public boolean existePerfil(String perfilName) {
-        /*boolean existe = false;
-        existe = existe || perfilConsultor.equalsIgnoreCase(perfilName);
-        existe = existe || perfilAdministrador.equalsIgnoreCase(perfilName);
-        existe = existe || perfilFuncionario.equalsIgnoreCase(perfilName);
-        return existe;*/
         return this.hashPerfiles.containsKey(perfilName);
     }
 
     public IPerfilUsuario getPerfil(String perfilName) {
-        IPerfilUsuario perfil = (IPerfilUsuario)this.hashPerfiles.get(perfilName);
+        IPerfilUsuario perfil = (IPerfilUsuario) this.hashPerfiles.get(perfilName);
         return perfil;
-        /*if (perfilName.equalsIgnoreCase(perfilAdministrador)) {
-            return new StubPerfilAdministrador();
-        } else if (perfilName.equalsIgnoreCase(perfilFuncionario)) {
-            return new StubPerfilFuncionario();
-        } else if (perfilName.equalsIgnoreCase("consultor")) {
-            return new StubPerfilConsultar();
-        } else {
-
-        }*/
     }
-    
-    public boolean crearPerfil(String perfilName)
-    {
+
+    public boolean crearPerfil(String perfilName, ArrayList<String> permisos) {
         boolean creacion = false;
-        if (!existePerfil(perfilName))
-        {
+        if (!existePerfil(perfilName)) {
             creacion = true;
             this.hashPerfiles.put(perfilName, new PerfilUsuario(perfilName));
         }
         return creacion;
     }
-    public boolean borrarPerfil(String perfilName)
-    {
+
+    public boolean borrarPerfil(String perfilName) {
         boolean borrar = false;
-        if (existePerfil(perfilName) && !perfilName.equalsIgnoreCase(perfilAdministrador))
-        {
+        if (existePerfil(perfilName) && !perfilName.equalsIgnoreCase(perfilAdministrador)) {
             borrar = true;
             this.hashPerfiles.remove(perfilName);
         }
         return borrar;
     }
-    public boolean modificarPerfil(String perfilName, ArrayList<String> permisos)
-    {
+
+    public boolean modificarPerfil(String perfilName, ArrayList<String> permisos) {
         boolean modificar = false;
-        boolean existPerfil = existePerfil(perfilName);
-        if (existPerfil && !perfilName.equalsIgnoreCase(perfilAdministrador))
-        {
+        if (existePerfil(perfilName) && !perfilName.equalsIgnoreCase(perfilAdministrador)) {
             modificar = true;
-            String permiso;
             IPerfilUsuario perfil = getPerfil(perfilName);
-            perfil.borrarTodo();
-            for(Object objPermiso : permisos)
-            {
-                permiso = (String)objPermiso;
+            perfil.borrarPermisosPerfil();
+            for (String permiso : permisos) {
                 perfil.agregarAcceso(permiso);
             }
         }
-
         return modificar;
     }
 }

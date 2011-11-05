@@ -2,21 +2,18 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package sistemadeenvios.drivers;
 
-import java.util.ArrayList;
 import java.util.Random;
 import sistemadeenvios.logic.IPerfilUsuario;
 import sistemadeenvios.logic.PerfilUsuario;
-import sistemadeenvios.persistence.IPerfilBuilder;
-import sistemadeenvios.stubs.StubPerfilBuilder;
 
 /**
  *
  * @author Fede
  */
 public class DriverPerfil {
+
     public static void main(String args[]) {
         IPerfilUsuario perfil = new PerfilUsuario("nuevoPerfil");
         probarPermisos(perfil);
@@ -25,22 +22,18 @@ public class DriverPerfil {
         borrarPerfil(perfil);
     }
 
-    private static String randomString(int length)
-    {
+    private static String randomString(int length) {
         Random random = new Random();
         char[] buf = new char[length];
         char[] symbols = new char[36];
-        for (int idx = 0; idx < 10; ++idx)
-        {
+        for (int idx = 0; idx < 10; ++idx) {
             symbols[idx] = (char) ('0' + idx);
         }
-        for (int idx = 10; idx < 36; ++idx)
-        {
+        for (int idx = 10; idx < 36; ++idx) {
             symbols[idx] = (char) ('a' + idx - 10);
         }
 
-        for (int idx = 0; idx < buf.length; ++idx)
-        {
+        for (int idx = 0; idx < buf.length; ++idx) {
             buf[idx] = symbols[random.nextInt(symbols.length)];
         }
         return new String(buf);
@@ -56,10 +49,9 @@ public class DriverPerfil {
         System.out.println("");
         System.out.println("Se prueban 5 permisos al azar");
         String randomComp;
-        for (int i = 0; i < 5; i++)
-        {
+        for (int i = 0; i < 5; i++) {
             randomComp = randomString(10);
-            System.out.println("Validar acceso a componente " + randomComp + " : "+perfil.validarAcceso(randomComp));
+            System.out.println("Validar acceso a componente " + randomComp + " : " + perfil.validarAcceso(randomComp));
         }
     }
 
@@ -87,7 +79,7 @@ public class DriverPerfil {
         System.out.println("================ Modificar Perfiles ==================");
         perfil.agregarAcceso("modificarUsuario");
         perfil.agregarAcceso("crearUsuario");
-        
+
         System.out.println("modificarPerfil - Agrega permisos: modificarUsuario y crearUsuario");
         System.out.println("Debe retornar \"true\": " + perfil.modificarPerfil());
 
@@ -106,11 +98,9 @@ public class DriverPerfil {
         System.out.println("");
         System.out.println("Se prueban 5 permisos al azar");
         String randomComp;
-        for (int i = 0; i < 5; i++)
-        {
+        for (int i = 0; i < 5; i++) {
             randomComp = randomString(10);
-            System.out.println("Validar acceso a componente " + randomComp + " : "+perfil.validarAcceso(randomComp));
+            System.out.println("Validar acceso a componente " + randomComp + " : " + perfil.validarAcceso(randomComp));
         }
     }
-
 }
