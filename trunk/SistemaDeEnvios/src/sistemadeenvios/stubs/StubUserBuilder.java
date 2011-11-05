@@ -4,12 +4,11 @@
  */
 package sistemadeenvios.stubs;
 
+import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import sistemadeenvios.logic.IPerfilUsuario;
 import sistemadeenvios.logic.IUsuario;
 import sistemadeenvios.logic.Usuario;
-import sistemadeenvios.persistence.IPerfilBuilder;
 import sistemadeenvios.persistence.IUserBuilder;
 
 /*
@@ -18,14 +17,13 @@ import sistemadeenvios.persistence.IUserBuilder;
 public class StubUserBuilder implements IUserBuilder {
 
     private static StubUserBuilder INSTANCE;
-
     final String usuarioConsultor = "consultor";
-    final String usuarioAdministrador = "admin";
+    final String usuarioAdministrador = "administrador";
     final String usuarioFuncionario = "funcionario";
     private Hashtable hashUsuarios;
 
     public static StubUserBuilder getInstance() {
-        if (INSTANCE == null){
+        if (INSTANCE == null) {
             INSTANCE = new StubUserBuilder();
         }
         return INSTANCE;
@@ -33,18 +31,9 @@ public class StubUserBuilder implements IUserBuilder {
 
     private StubUserBuilder() {
         this.hashUsuarios = new Hashtable();
-        ArrayList<String> aux = new ArrayList<String>();
-        aux.add(usuarioConsultor);
-        this.hashUsuarios.put(usuarioConsultor, new Usuario(usuarioConsultor, usuarioConsultor, aux));
-
-        aux = new ArrayList<String>();
-        aux.add(usuarioAdministrador);
-        this.hashUsuarios.put(usuarioAdministrador, new Usuario(usuarioAdministrador, usuarioAdministrador, aux));
-
-        aux = new ArrayList<String>();
-        aux.add(usuarioFuncionario);
-        this.hashUsuarios.put(usuarioFuncionario, new Usuario(usuarioFuncionario, usuarioFuncionario, aux));
-
+        this.hashUsuarios.put(usuarioConsultor, new StubUsuario(usuarioConsultor));
+        this.hashUsuarios.put(usuarioAdministrador, new StubUsuario(usuarioAdministrador));
+        this.hashUsuarios.put(usuarioFuncionario, new StubUsuario(usuarioFuncionario));
     }
 
     public boolean existeUserName(String userName) {
@@ -61,26 +50,6 @@ public class StubUserBuilder implements IUserBuilder {
             return user.getListaPerfiles();
         }
         return null;
-        /*
-        IPerfilBuilder pb = new StubPerfilBuilder();
-        ArrayList<String> perfiles = new ArrayList<String>();
-        ArrayList<IPerfilUsuario> listaPerfiles = new ArrayList<IPerfilUsuario>();
-        // Cargo los nombres de los perfiles
-        if (userName.equalsIgnoreCase("admin")) {
-        perfiles.add("administrador");
-        } else if (userName.equalsIgnoreCase("funcionario")) {
-        perfiles.add("funcionario");
-        } else
-        if (userName.equalsIgnoreCase("consultor"))  {
-        perfiles.add("consultor");
-        }
-        // Cargo los perfiles por su nombre
-        for(String perfil: perfiles){
-        if(pb.existePerfil(perfil)){
-        listaPerfiles.add(pb.getPerfil(perfil));
-        }
-        }
-        return listaPerfiles;*/
     }
 
     public boolean crearUsuario(String userName, String password,

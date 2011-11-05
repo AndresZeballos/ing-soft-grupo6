@@ -5,6 +5,7 @@
 
 package sistemadeenvios.stubs;
 
+import java.util.ArrayList;
 import sistemadeenvios.logic.IPerfilUsuario;
 
 /**
@@ -32,4 +33,17 @@ public class StubPerfilAdministrador implements IPerfilUsuario{
     public boolean crearPerfil() {return true; }
     public boolean modificarPerfil(){return true; }
     public boolean borrarPerfil(){return true; }
+
+    public ArrayList<String> getPermisos() {
+        ArrayList<String> posibles = new ArrayList<String>();
+        posibles.add("NuevoEnvio");
+        posibles.add("ConsultarEnvio");
+        posibles.add("NuevoUsuario");
+        posibles.add("ActualizarUsuario");
+        posibles.add("EliminarUsuario");
+        posibles.add("NuevoPerfil");
+        posibles.add("ActualizarPerfil");
+        posibles.add("EliminarPerfil");
+        return posibles;
+    }
 }

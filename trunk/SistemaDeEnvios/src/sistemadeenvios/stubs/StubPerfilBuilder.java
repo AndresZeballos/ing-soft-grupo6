@@ -4,8 +4,8 @@
  */
 package sistemadeenvios.stubs;
 
+import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import sistemadeenvios.persistence.IPerfilBuilder;
 import sistemadeenvios.logic.IPerfilUsuario;
 import sistemadeenvios.logic.PerfilUsuario;
@@ -18,14 +18,13 @@ public class StubPerfilBuilder implements IPerfilBuilder {
     //Nombres de perfiles stub
 
     private static StubPerfilBuilder INSTANCE;
-
     final String perfilConsultor = "consultor";
     final String perfilAdministrador = "administrador";
     final String perfilFuncionario = "funcionario";
     private Hashtable hashPerfiles;
 
     public static StubPerfilBuilder getInstance() {
-        if (INSTANCE == null){
+        if (INSTANCE == null) {
             INSTANCE = new StubPerfilBuilder();
         }
         return INSTANCE;
@@ -43,7 +42,7 @@ public class StubPerfilBuilder implements IPerfilBuilder {
     }
 
     public IPerfilUsuario getPerfil(String perfilName) {
-        IPerfilUsuario perfil = (IPerfilUsuario) this.hashPerfiles.get(perfilName);
+        IPerfilUsuario perfil = (IPerfilUsuario) this.hashPerfiles.get(perfilName.toLowerCase());
         return perfil;
     }
 
@@ -51,7 +50,11 @@ public class StubPerfilBuilder implements IPerfilBuilder {
         boolean creacion = false;
         if (!existePerfil(perfilName)) {
             creacion = true;
-            this.hashPerfiles.put(perfilName, new PerfilUsuario(perfilName));
+            PerfilUsuario perfil = new PerfilUsuario(perfilName.toLowerCase());
+            for (String permiso : permisos) {
+                perfil.agregarAcceso(permiso);
+            }
+            this.hashPerfiles.put(perfilName, perfil);
         }
         return creacion;
     }
@@ -70,7 +73,6 @@ public class StubPerfilBuilder implements IPerfilBuilder {
         if (existePerfil(perfilName) && !perfilName.equalsIgnoreCase(perfilAdministrador)) {
             modificar = true;
             IPerfilUsuario perfil = getPerfil(perfilName);
-            perfil.borrarPermisosPerfil();
             for (String permiso : permisos) {
                 perfil.agregarAcceso(permiso);
             }

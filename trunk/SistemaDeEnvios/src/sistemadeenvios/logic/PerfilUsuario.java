@@ -19,9 +19,15 @@ public class PerfilUsuario implements IPerfilUsuario {
     IPerfilBuilder builder;
 
     public PerfilUsuario(String perfilName) {
-        this.perfilName = perfilName;
-        this.accesos = new ArrayList<String>();
         this.builder = StubPerfilBuilder.getInstance();
+        this.perfilName = perfilName;
+        if (this.builder.existePerfil(perfilName)) {
+            this.accesos = this.builder.getPerfil(perfilName).getPermisos();
+        }
+    }
+
+    public ArrayList<String> getPermisos() {
+        return this.accesos;
     }
 
     public String getPerfilName() {
@@ -34,6 +40,9 @@ public class PerfilUsuario implements IPerfilUsuario {
     }
 
     public void agregarAcceso(String nombreComponente) {
+        if (this.accesos == null) {
+            this.accesos = new ArrayList<String>();
+        }
         if (!tieneComponente(nombreComponente)) {
             accesos.add(nombreComponente);
         }

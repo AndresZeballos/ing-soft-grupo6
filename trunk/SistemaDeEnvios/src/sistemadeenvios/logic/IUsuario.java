@@ -17,6 +17,7 @@ public interface IUsuario {
     String getUserName();
     ArrayList<IPerfilUsuario> getListaPerfiles();
     boolean addPerfil(String perfilUsuario);
+    void borrarPerfiles();
     boolean crearUsuario();
     boolean borrarUsuario();
     boolean modificarUsuario();

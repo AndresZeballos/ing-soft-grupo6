@@ -47,7 +47,10 @@ public class Usuario implements IUsuario {
         this.builder = StubUserBuilder.getInstance();
         this.userName = userName;
         this.password = password;
-        this.listaPerfiles = this.builder.getPerfiles(userName);
+        this.listaPerfiles = new ArrayList<IPerfilUsuario>();
+        for (String perfil : listaPerfiles) {
+            this.listaPerfiles.add(StubPerfilBuilder.getInstance().getPerfil(perfil));
+        }
     }
 
     public boolean validarPassword(String password) {
@@ -112,6 +115,12 @@ public class Usuario implements IUsuario {
         for (IPerfilUsuario p : this.listaPerfiles) {
             lista.add(p.getPerfilName());
         }
-        return this.builder.crearUsuario(this.userName, this.password, lista);
+        return this.builder.modificarUsuario(this.userName, this.password, lista);
+    }
+
+    public void borrarPerfiles() {
+        for (int i = 0; i < this.listaPerfiles.size(); i++) {
+            this.listaPerfiles.remove(i);
+        }
     }
 }
