@@ -42,7 +42,7 @@ public class StubPerfilBuilder implements IPerfilBuilder {
     }
 
     public IPerfilUsuario getPerfil(String perfilName) {
-        IPerfilUsuario perfil = (IPerfilUsuario) this.hashPerfiles.get(perfilName.toLowerCase());
+        IPerfilUsuario perfil = (IPerfilUsuario) this.hashPerfiles.get(perfilName);
         return perfil;
     }
 
